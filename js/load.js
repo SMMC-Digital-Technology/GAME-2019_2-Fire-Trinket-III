@@ -8,20 +8,20 @@ var loadState = {
       fill: '#ffffff'
     });
 
-    game.add.image('ship1', 'assets/Ship_1.png');
+    game.load.image('ship1', 'assets/Ship_1.png');
 
-    game.add.image('planet1', 'assets/Planet_1.png');
-    game.add.image('planet2', 'assets/Planet_2.png');
-    game.add.image('planet3', 'assets/Planet_3.png');
-    game.add.image('planet4', 'assets/Planet_4.png');
-    game.add.image('planet5', 'assets/Planet_5.png');
-    game.add.image('GalaxyMap', 'assets/Galaxy_Map.png');
+    game.load.image('planet1', 'assets/Planet_1.png');
+    game.load.image('planet2', 'assets/Planet_2.png');
+    game.load.image('planet3', 'assets/Planet_3.png');
+    game.load.image('planet4', 'assets/Planet_4.png');
+    game.load.image('planet5', 'assets/Planet_5.png');
+    game.load.image('GalaxyMap', 'assets/Galaxy_Map.png');
 
-    game.add.image('wrathE', 'assets/ElixirOfWrath');
-    game.add.image('realmWarpE', 'assets/RealmWarpPotion.png');
+    game.load.image('wrathE', 'assets/ElixirOfWrath');
+    game.load.image('realmWarpE', 'assets/RealmWarpPotion.png');
 
-    game.add.image('rocketAsset', 'assets/Rocket.png');
-    game.add.image('RPGAsset', 'assets/RPG.png');
+    game.load.spritesheet('rocketAsset', 'assets/Rocket.png', 32, 32);
+    game.load.image('RPGAsset', 'assets/RPG.png');
     // load all assets
   },
 
