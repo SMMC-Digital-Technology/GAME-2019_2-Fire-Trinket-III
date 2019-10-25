@@ -17,7 +17,7 @@ var loadState = {
     game.load.image('planet5', 'assets/Planet_5.png');
     game.load.image('GalaxyMap', 'assets/Galaxy_Map.png');
 
-    game.load.image('wrathE', 'assets/ElixirOfWrath');
+    game.load.image('wrathE', 'assets/ElixirOfWrath.png');
     game.load.image('realmWarpE', 'assets/RealmWarpPotion.png');
 
     game.load.spritesheet('rocketAsset', 'assets/Rocket.png', 32, 32);
