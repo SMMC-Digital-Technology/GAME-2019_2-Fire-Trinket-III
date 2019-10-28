@@ -8,6 +8,7 @@
 var levelState = {
    create: function() {
       // create the level
+      //spriteName.smoothed = false; <-- to stop the smoothing of sprites
    },
 
    update: function() {
