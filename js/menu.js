@@ -27,6 +27,10 @@ var menuState = {
     button5 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet5');
     button5.anchor.setTo(0.5, 0.5);
     button5.onInputUp.add(this.startLevel5);
+
+    button6 = game.add.button(game.world.centerX - 250, game.world.centerY, 'ship_1');
+    button6.anchor.setTo(0.5, 0.5);
+    button6.onInputUp.add(this.startLevel6);
   },
 
   // this is how you write a function
@@ -56,6 +60,10 @@ var menuState = {
 
   startLevel5: function() {
     game.state.start('level5');
+  },
+
+  startLevel6: function() {
+    game.state.start('level6');
   },
 
 };
