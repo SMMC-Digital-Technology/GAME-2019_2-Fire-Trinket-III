@@ -10,27 +10,45 @@ var menuState = {
 
     button1 = game.add.button(game.world.centerX - 343, game.world.centerY - 50, 'planet1');
     button1.anchor.setTo(0.5, 0.5);
+    button1.scale.x = 2;
+    button1.scale.y = 2;
+    button1.smoothed = false;
     button1.onInputUp.add(this.startLevel1);
 
-    button2 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet2');
+    button2 = game.add.button(game.world.centerX - 230, game.world.centerY - 50, 'planet2');
     button2.anchor.setTo(0.5, 0.5);
+    button2.scale.x = 2;
+    button2.scale.y = 2;
+    button2.smoothed = false;
     button2.onInputUp.add(this.startLevel2);
 
-    button3 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet3');
+    button3 = game.add.button(game.world.centerX - 130, game.world.centerY - 50, 'planet3');
     button3.anchor.setTo(0.5, 0.5);
+    button3.scale.x = 2;
+    button3.scale.y = 2;
+    button3.smoothed = false;
     button3.onInputUp.add(this.startLevel3);
 
-    button4 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet4');
+    button4 = game.add.button(game.world.centerX - 10, game.world.centerY - 50, 'planet4');
     button4.anchor.setTo(0.5, 0.5);
+    button4.scale.x = 2;
+    button4.scale.y = 2;
+    button4.smoothed = false;
     button4.onInputUp.add(this.startLevel4);
 
-    button5 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet5');
+    button5 = game.add.button(game.world.centerX + 130, game.world.centerY - 50, 'planet5');
     button5.anchor.setTo(0.5, 0.5);
+    button5.scale.x = 2;
+    button5.scale.y = 2;
+    button5.smoothed = false;
     button5.onInputUp.add(this.startLevel5);
 
     //if (storyStatus > 5) {
-    button6 = game.add.button(game.world.centerX - 250, game.world.centerY, 'ship1');
+    button6 = game.add.button(game.world.centerX + 300, game.world.centerY - 50, 'ship1');
     button6.anchor.setTo(0.5, 0.5);
+    button6.scale.x = 2;
+    button6.scale.y = 2;
+    button6.smoothed = false;
     button6.onInputUp.add(this.startLevel6);
     //}
   },
