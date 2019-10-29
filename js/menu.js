@@ -8,7 +8,7 @@ var menuState = {
 
     game.add.sprite(0, 0, 'GalaxyMap');
 
-    button1 = game.add.button(game.world.centerX - 250, game.world.centerY, 'planet1');
+    button1 = game.add.button(game.world.centerX - 343, game.world.centerY - 50, 'planet1');
     button1.anchor.setTo(0.5, 0.5);
     button1.onInputUp.add(this.startLevel1);
 
@@ -28,9 +28,11 @@ var menuState = {
     button5.anchor.setTo(0.5, 0.5);
     button5.onInputUp.add(this.startLevel5);
 
-    button6 = game.add.button(game.world.centerX - 250, game.world.centerY, 'ship_1');
+    //if (storyStatus > 5) {
+    button6 = game.add.button(game.world.centerX - 250, game.world.centerY, 'ship1');
     button6.anchor.setTo(0.5, 0.5);
     button6.onInputUp.add(this.startLevel6);
+    //}
   },
 
   // this is how you write a function
