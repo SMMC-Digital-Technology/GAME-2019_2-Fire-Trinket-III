@@ -22,7 +22,7 @@ var menuState = {
     button2.smoothed = false;
     button2.onInputUp.add(this.startLevel2);
 
-    button3 = game.add.button(game.world.centerX - 130, game.world.centerY - 50, 'planet3');
+    button3 = game.add.button(game.world.centerX - 138, game.world.centerY - 50, 'planet3');
     button3.anchor.setTo(0.5, 0.5);
     button3.scale.x = 2;
     button3.scale.y = 2;
@@ -63,27 +63,39 @@ var menuState = {
   },
 
   startLevel1: function() {
-    game.state.start('level1');
+    if (game.global.storyStatus == 1) {
+      game.state.start('level1');
+    }
   },
 
   startLevel2: function() {
-    game.state.start('level2');
+    if (game.global.storyStatus == 2) {
+      game.state.start('level2');
+    }
   },
 
   startLevel3: function() {
-    game.state.start('level3');
+    if (game.global.storyStatus == 3) {
+      game.state.start('level3');
+    }
   },
 
   startLevel4: function() {
-    game.state.start('level4');
+    if (game.global.storyStatus == 4) {
+      game.state.start('level4');
+    }
   },
 
   startLevel5: function() {
-    game.state.start('level5');
+    if (game.global.storyStatus == 5) {
+      game.state.start('level5');
+    }
   },
 
   startLevel6: function() {
-    game.state.start('level6');
+    if (game.global.storyStatus == 6) {
+      game.state.start('level6');
+    }
   },
 
 };
