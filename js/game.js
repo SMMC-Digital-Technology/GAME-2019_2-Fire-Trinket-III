@@ -15,6 +15,8 @@ game.state.add('gameover', gameoverState);
 
 game.global = {
   storyStatus: 1,
+  turn: 1,
+  movingBluleth: 0
 
   // set variables that travel between the states here
   // eg score = 0;
