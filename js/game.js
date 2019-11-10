@@ -16,7 +16,10 @@ game.state.add('gameover', gameoverState);
 game.global = {
   storyStatus: 1,
   turn: 1,
-  movingBluleth: 0
+  moving: 0,
+  charX: 0,
+  charY: 0,
+  level1TMA: '0,0,3,0,0,0,1,0,0,0,\n1,1,1,0,0,0,3,0,0,0,\n0,0,0,0,0,0,1,1,1,1,\n2,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,0,0,0,0,\n1,0,0,1,1,1,1,1,0,\n0,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,1,0,0,0,\n1,1,1,0,0,1,1,0,0,4,\n0,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,1,1,5,1,\n0,0,0,0,0,0,1'
 
   // set variables that travel between the states here
   // eg score = 0;
