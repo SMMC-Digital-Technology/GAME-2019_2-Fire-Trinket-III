@@ -141,7 +141,8 @@ var level1State = {
   attackalien1: function() {
     rpgRocket.x = rpg.x;
     rpgRocket.y = rpg.y;
-    rpgRocket.angle = (Math.floor(bluleth.x / 100) - Math.floor(alien1.x / 100)) - (Math.floor(bluleth.y / 100) - Math.floor()) * 360;
+    rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
+    //rpgRocket.angle = (Math.floor(bluleth.x / 100) - Math.floor(alien1.x / 100)) - (Math.floor(bluleth.y / 100) - Math.floor()) * 360;
     game.global.alien1HP = game.global.alien1HP - 1;
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
