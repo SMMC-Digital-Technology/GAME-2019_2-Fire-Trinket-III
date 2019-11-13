@@ -4,7 +4,6 @@
  */
 var menuState = {
   create: function() {
-    // create the scene
 
     game.add.sprite(0, 0, 'GalaxyMap');
 

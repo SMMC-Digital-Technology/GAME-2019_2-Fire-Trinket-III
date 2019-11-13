@@ -10,6 +10,7 @@ var loadState = {
 
     game.load.image('ship1', 'assets/Ship_1.png');
 
+    game.load.image('wall', 'assets/wall.png');
     game.load.image('tiles', 'assets/level1tilemap.png');
 
     game.load.image('planet1', 'assets/Planet_1.png');

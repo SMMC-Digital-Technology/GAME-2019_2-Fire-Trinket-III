@@ -6,8 +6,9 @@
  * level2State etc will work fine
  */
 var level1State = {
+
   create: function() {
-    cameraSprite = game.add.sprite(game.world.width / 2, -1000, 'level1BG');
+    cameraSprite = game.add.sprite(game.world.width / 2, -1000, 'planet3');
     cameraSprite.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(cameraSprite);
 
@@ -26,22 +27,28 @@ var level1State = {
     //  Scroll it
     layer.resizeWorld();
 
-    map.setCollisionBetween(1, 5, true, this.layer, true);
+    map.setCollisionBetween(4, 5, true, this.layer, true);
 
-    blulethI = game.add.sprite(353.5, 661.5, 'planet3');
+    wallA1 = game.add.sprite(200, 0, 'wall');
+    wallA2 = game.add.sprite(600, 300, 'wall');
+    terminalA = game.add.sprite(0, 300, 'wall');
+
+    wallB = game.add.sprite(800, 1000, 'wall');
+    terminalB = game.add.sprite(1000, 900, 'wall');
+
+    blulethI = game.add.sprite(350, 650, 'planet3');
     game.physics.arcade.enable(blulethI);
     blulethI.anchor.setTo(0.5, 0.5);
     blulethI.scale.x = 3;
     blulethI.scale.y = 3;
     blulethI.smoothed = false;
 
-    bluleth = game.add.button(353.5, 661.5, 'planet3');
+    bluleth = game.add.button(354, 662, 'planet3');
     bluleth.anchor.setTo(0.5, 0.5);
     bluleth.scale.x = 3;
     bluleth.scale.y = 3;
     bluleth.smoothed = false;
     bluleth.onInputUp.add(this.blulethMove);
-
 
     game.input.mouse.capture = true;
   },
@@ -49,11 +56,23 @@ var level1State = {
   update: function() {
     game.physics.arcade.collide(blulethI, layer);
 
+    game.physics.arcade.overlap(blulethI, terminalA, this.terminalAActivate, null, this);
+    game.physics.arcade.overlap(blulethI, terminalB, this.terminalBActivate, null, this);
+
+    if (game.global.wallA == 0) {
+      game.physics.arcade.overlap(blulethI, wallA1);
+      game.physics.arcade.overlap(blulethI, wallA2);
+    }
+    if (game.global.wallB == 1) {
+      game.physics.arcade.overlap(blulethI, wallB);
+    }
+
     game.camera.follow(cameraSprite);
     cameraSprite.body.velocity.x = -60;
 
     bluleth.x = blulethI.x;
     bluleth.y = blulethI.y;
+
     // do things on the game loop
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1) {
       if (Math.abs(Math.floor((this.input.mousePointer.x + 50) / 100 - game.global.charX / 100)) + Math.abs(Math.floor((this.input.mousePointer.y + 50) / 100 - game.global.charY / 100)) < 4) {
@@ -89,6 +108,12 @@ var level1State = {
   exampleFunction: function(something, somethingElse) {
 
   },
+
+  interaction: function(blulethI, layer2) {
+    console.log("oh lol it works");
+  },
+
+
   blulethMove: function() {
     if (game.global.turn == 1 && game.global.moving == 0) {
       console.log('bluleth is about to move');
@@ -105,5 +130,13 @@ var level1State = {
     game.global.moving = 0;
     blulethI.x = Math.floor(blulethI.x / 100) * 100 + 50;
     blulethI.y = Math.floor(blulethI.y / 100) * 100 + 50;
+  },
+
+  terminalAActivate: function(blulethI, terminalA) {
+    game.global.wallA = 1;
+  },
+
+  terminalBActivate: function(blulethI, terminalB) {
+    game.global.wallB = 1;
   }
 };
