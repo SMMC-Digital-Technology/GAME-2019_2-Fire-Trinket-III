@@ -42,11 +42,41 @@ var level1State = {
     bluleth.smoothed = false;
     bluleth.onInputUp.add(this.blulethMove);
 
+    alien1 = game.add.button(50, 450, "planet1");
+    alien1.anchor.setTo(0.5, 0.5);
+    alien1.smoothed = false;
+    game.physics.arcade.enable(alien1);
+
+    rpg = game.add.sprite(0, 0, 'RPGAsset');
+    rpg.alpha = 1;
+    rpg.x = blulethI.x + 50;
+    rpg.y = blulethI.y;
+
+    rpgRocket = game.add.sprite(10, 10, 'rocketAsset');
+    rpgRocket.animations.add("rocketAsset", [0, 1, 2, 3, 4], 5, true);
+    rpgRocket.scale.x = 1;
+    rpgRocket.scale.y = 1;
+    game.physics.arcade.enable(rpgRocket);
+    rpgRocket.anchor.setTo(0.5, 0.5);
+    rpgRocket.alpha = 0;
+
+    rpgRocket.animations.play('rocketAsset');
+
+
 
     game.input.mouse.capture = true;
   },
 
   update: function() {
+    rpg.angle += 1;
+
+    rpg.x = bluleth.x;
+    rpg.y = bluleth.y;
+
+    if (game.global.alien1HP == 0) {
+      alien1.kill();
+    }
+
     game.physics.arcade.collide(blulethI, layer);
 
     game.camera.follow(cameraSprite);
@@ -58,6 +88,7 @@ var level1State = {
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1) {
       if (Math.abs(Math.floor((this.input.mousePointer.x + 50) / 100 - game.global.charX / 100)) + Math.abs(Math.floor((this.input.mousePointer.y + 50) / 100 - game.global.charY / 100)) < 4) {
         if (game.global.char == 'bluleth') {
+            alien1.onInputUp.add(this.attackalien1);
           if (Math.abs(Math.floor(this.input.mousePointer.x / 100) - Math.floor(bluleth.x / 100)) > 0) {
             blulethI.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(bluleth.x / 100)) * 60;
             blulethI.body.velocity.y = (Math.floor(this.input.mousePointer.y / 100) - Math.floor(bluleth.y / 100)) * 60;
@@ -105,5 +136,26 @@ var level1State = {
     game.global.moving = 0;
     blulethI.x = Math.floor(blulethI.x / 100) * 100 + 50;
     blulethI.y = Math.floor(blulethI.y / 100) * 100 + 50;
+  },
+
+  attackalien1: function() {
+    rpgRocket.x = rpg.x;
+    rpgRocket.y = rpg.y;
+    rpgRocket.angle = (Math.floor(bluleth.x / 100) - Math.floor(alien1.x / 100)) - (Math.floor(bluleth.y / 100) - Math.floor()) * 360;
+    game.global.alien1HP = game.global.alien1HP - 1;
+    blulethI.body.velocity.x = 0;
+    blulethI.body.velocity.y = 0;
+    rpgRocket.alpha = 1;
+    rpg.x = blulethI.x;
+    rpg.y = blulethI.y;
+    console.log(game.global.alien1HP);
+    rpg.alpha = 1;
+    console.log(Math.floor(alien1.x / 100) - Math.floor(bluleth.x / 100));
+      if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
+        console.log('Bluleth Is Attacking Alien 1');
+        rpgRocket.body.velocity.x = (Math.floor(alien1.x / 100) - Math.floor(rpg.x / 100)) * 60;
+        rpgRocket.body.velocity.y = (Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100)) * 60;
+      }
   }
+
 };
