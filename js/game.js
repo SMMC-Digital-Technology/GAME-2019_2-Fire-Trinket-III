@@ -15,7 +15,7 @@ game.state.add('gameover', gameoverState);
 
 game.global = {
   right_side: 1,
-  ammo: 1,
+  ammo: 100,
   storyStatus: 1,
   turn: 1,
   moving: 0,

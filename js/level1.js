@@ -49,6 +49,14 @@ var level1State = {
     alien1.smoothed = false;
     game.physics.arcade.enable(alien1);
 
+    alien1Body = game.add.sprite(50, 450, "planet1");
+    alien1Body.scale.x = 2;
+    alien1Body.scale.y = 2;
+    alien1Body.anchor.setTo(0.5, 0.5);
+    alien1Body.smoothed = false;
+    game.physics.arcade.enable(alien1Body);
+    alien1Body.body.immovable = true;
+
     rpg = game.add.sprite(0, 0, 'RPGAsset');
     rpg.anchor.setTo(0.5, 0.5);
     rpg.alpha = 1;
@@ -69,7 +77,7 @@ var level1State = {
 
   update: function() {
     game.physics.arcade.collide(blulethI, layer);
-    game.physics.arcade.collide(rpgRocket, alien1, this.hitAlien1, null, this);
+    game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
 
     rpg.y = bluleth.y;
 
@@ -81,10 +89,32 @@ var level1State = {
 
     if (game.global.alien1HP == 0) {
       alien1.kill();
+      alien1Body.kill();
     }
 
     game.camera.follow(cameraSprite);
     cameraSprite.body.velocity.x = -60;
+
+    alien1.x = alien1Body.x;
+    alien1.y = alien1Body.y;
+
+    if (alien1.x > blulethI.x) {
+      game.global.right_side = 1;
+    } else {
+      game.global.right_side = 0;
+    }
+
+    if (game.global.right_side == 1) {
+      rpg.x = blulethI.x + 40;
+      rpg.y = blulethI.y;
+      bluleth.scale.x = 3;
+      blulethI.scale.x = 3;
+    } else {
+      rpg.x = blulethI.x - 40;
+      rpg.y = blulethI.y;
+      bluleth.scale.x = -3;
+      blulethI.scale.x = -3;
+    }
 
     bluleth.x = blulethI.x;
     bluleth.y = blulethI.y;
@@ -134,12 +164,12 @@ var level1State = {
     }
   },
 
-  hitAlien1: function(rpgRocket, alien1) {
+  hitAlien1: function(rpgRocket, alien1Body) {
     game.global.alien1HP = game.global.alien1HP - 1;
     rpgRocket.alpha = 0;
     rpgRocket.x = 0;
     rpgRocket.y = 0;
-    console.log("jjjj");
+    console.log("alien HP = " + game.global.alien1HP);
   },
 
   characterStop: function() {
@@ -151,47 +181,28 @@ var level1State = {
   },
 
   attackalien1: function() {
-    if (alien1.x > blulethI.x) {
-      game.global.right_side = 1;
-    } else {
-      game.global.right_side = 0;
-    }
-    rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y);
     if (game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y) > -1) {
       rpg.scale.y =-1;
-      bluleth.scale.x = -3;
-      blulethI.scale.x = -3;
       console.log("flipppp");
     } else {
       rpg.scale.y = 1;
-      bluleth.scale.x = 3;
-      blulethI.scale.x = 3;
       console.log("flipppp2");
     }
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
     console.log("Ammo = " + game.global.ammo);
-    if (game.global.ammo == 1) {
+    rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y);
+    if (game.global.ammo >= 1) {
       game.global.ammo = game.global.ammo - 1;
-      if (game.global.right_side == 1) {
-        rpgRocket.x = rpg.x;
-        rpgRocket.y = rpg.y;
-      } else {
-        rpgRocket.x = rpg.x - 80;
-        rpgRocket.y = rpg.y;
-        console.log('1');
-      }
+      rpgRocket.x = rpg.x;
+      rpgRocket.y = rpg.y;
       rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
       rpgRocket.alpha = 1;
-      rpg.x = blulethI.x;
-      rpg.y = blulethI.y;
-      console.log("alien HP = " + game.global.alien1HP);
       rpg.alpha = 1;
         if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
           console.log('Bluleth Is Attacking Alien 1');
           rpgRocket.body.velocity.x = (Math.floor(alien1.x / 100) - Math.floor(rpg.x / 100)) * 60;
           rpgRocket.body.velocity.y = (Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100)) * 60;
-          console.log('2');
           console.log(Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100) * 60);
         }
     } else {
