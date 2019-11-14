@@ -43,7 +43,9 @@ var level1State = {
     bluleth.onInputUp.add(this.blulethMove);
 
     alien1 = game.add.button(50, 450, "planet1");
-    alien1.anchor.setTo(0.2, 0.2);
+    alien1.scale.x = 2;
+    alien1.scale.y = 2;
+    alien1.anchor.setTo(0.5, 0.5);
     alien1.smoothed = false;
     game.physics.arcade.enable(alien1);
 
@@ -60,15 +62,15 @@ var level1State = {
     game.physics.arcade.enable(rpgRocket);
     rpgRocket.anchor.setTo(0.5, 0.5);
     rpgRocket.alpha = 0;
-
     rpgRocket.animations.play('rocketAsset');
 
-
-
-    game.input.mouse.capture = true;
+   game.input.mouse.capture = true;
   },
 
   update: function() {
+    game.physics.arcade.collide(blulethI, layer);
+    game.physics.arcade.collide(rpgRocket, alien1, this.hitAlien1, null, this);
+
     rpg.y = bluleth.y;
 
     if (game.global.right_side == 1) {
@@ -80,8 +82,6 @@ var level1State = {
     if (game.global.alien1HP == 0) {
       alien1.kill();
     }
-
-    game.physics.arcade.collide(blulethI, layer);
 
     game.camera.follow(cameraSprite);
     cameraSprite.body.velocity.x = -60;
@@ -134,6 +134,14 @@ var level1State = {
     }
   },
 
+  hitAlien1: function(rpgRocket, alien1) {
+    game.global.alien1HP = game.global.alien1HP - 1;
+    rpgRocket.alpha = 0;
+    rpgRocket.x = 0;
+    rpgRocket.y = 0;
+    console.log("jjjj");
+  },
+
   characterStop: function() {
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
@@ -173,10 +181,7 @@ var level1State = {
         rpgRocket.y = rpg.y;
         console.log('1');
       }
-      //rpgRocket.x = rpg.x;
-      //rpgRocket.y = rpg.y;
       rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
-      game.global.alien1HP = game.global.alien1HP - 1;
       rpgRocket.alpha = 1;
       rpg.x = blulethI.x;
       rpg.y = blulethI.y;
