@@ -181,7 +181,8 @@ var level1State = {
   },
 
   attackalien1: function() {
-    if (game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y) > -1) {
+    console.log(game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y)> -2.5) ;
+    if (game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y) > -2.5) {
       rpg.scale.y =-1;
       console.log("flipppp");
     } else {
@@ -190,24 +191,22 @@ var level1State = {
     }
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
-    console.log("Ammo = " + game.global.ammo);
     rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y);
-    if (game.global.ammo >= 1) {
-      game.global.ammo = game.global.ammo - 1;
-      rpgRocket.x = rpg.x;
-      rpgRocket.y = rpg.y;
-      rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
-      rpgRocket.alpha = 1;
-      rpg.alpha = 1;
         if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
           console.log('Bluleth Is Attacking Alien 1');
+          if (game.global.ammo >= 1) {
+            game.global.ammo = game.global.ammo - 1;
+            rpgRocket.x = rpg.x;
+            rpgRocket.y = rpg.y;
+            rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
+            rpgRocket.alpha = 1;
+            rpg.alpha = 1;
           rpgRocket.body.velocity.x = (Math.floor(alien1.x / 100) - Math.floor(rpg.x / 100)) * 60;
           rpgRocket.body.velocity.y = (Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100)) * 60;
-          console.log(Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100) * 60);
+        } else {
+          console.log("Not enough ammo boomer");
         }
-    } else {
-      console.log("Not enough ammo boomer");
-    }
+      }
   }
 
 };
