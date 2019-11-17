@@ -27,7 +27,7 @@ var loadState = {
 
     game.load.spritesheet('rocketAsset', 'assets/Rocket.png', 32, 32);
     game.load.image('RPGAsset', 'assets/RPG.png');
-    // load all assets
+    //   preloads everything into the game
   },
 
   create: function() {
