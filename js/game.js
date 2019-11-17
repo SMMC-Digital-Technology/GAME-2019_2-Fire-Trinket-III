@@ -14,6 +14,7 @@ game.state.add('level6', level6State);
 game.state.add('gameover', gameoverState);
 
 game.global = {
+  playerHP: 7,
   right_side: 1,
   ammo: 1,
   storyStatus: 1,
