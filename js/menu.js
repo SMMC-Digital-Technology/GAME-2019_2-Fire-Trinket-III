@@ -4,10 +4,11 @@
  */
 var menuState = {
   create: function() {
-    // create the scene
 
+    //   creates the sprite for the background of the menu
     game.add.sprite(0, 0, 'GalaxyMap');
 
+    //   creates 6 buttons, one ofor each level that run a function when clicked.
     button1 = game.add.button(game.world.centerX - 343, game.world.centerY - 50, 'planet1');
     button1.anchor.setTo(0.5, 0.5);
     button1.scale.x = 2;
@@ -62,6 +63,7 @@ var menuState = {
 
   },
 
+  //   these function when you are in the right part of the story, allow you to travel to different levels
   startLevel1: function() {
     if (game.global.storyStatus == 1) {
       game.state.start('level1');

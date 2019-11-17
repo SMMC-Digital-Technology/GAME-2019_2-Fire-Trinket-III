@@ -4,6 +4,7 @@ game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('menu', menuState);
 
+//   creates different states for all 6 different levels
 game.state.add('level1', level1State);
 game.state.add('level2', level2State);
 game.state.add('level3', level3State);
@@ -14,7 +15,7 @@ game.state.add('level6', level6State);
 game.state.add('gameover', gameoverState);
 
 game.global = {
-  playerHP: 7,
+  //   creates the different variables to tell diffrerent parts of the story, which turn it is, and for movving the different characters
   right_side: 1,
   ammo: 1,
   storyStatus: 1,
@@ -22,13 +23,8 @@ game.global = {
   moving: 0,
   charX: 0,
   charY: 0,
-  level1TMA: '0,0,3,0,0,0,1,0,0,0,\n1,1,1,0,0,0,3,0,0,0,\n0,0,0,0,0,0,1,1,1,1,\n2,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,0,0,0,0,\n1,0,0,1,1,1,1,1,0,\n0,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,1,0,0,0,\n1,1,1,0,0,1,1,0,0,4,\n0,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,1,1,5,1,\n0,0,0,0,0,0,1',
-  alien1HP: 3,
-
-  // set variables that travel between the states here
-  // eg score = 0;
-  // access using game.global
-  // eg game.gloabl.score
+  //   this array creates a tilemap where \n creates a new line, with each number representing a different tile on the spritesheet
+  level1TMA: '0,0,4,0,0,0,10,0,0,0,\n6,6,8,0,0,0,4,0,0,0,\n0,0,0,0,0,0,12,6,6,6,\n13,0,0,0,0,0,9,0,0,0,\n0,0,0,0,0,0,0,0,0,0,\n8,0,0,7,6,6,11,8,0,7\n0,0,0,0,0,0,10,0,0,0,\n0,0,0,0,0,0,10,0,0,0,\n1,1,1,0,0,1,1,0,0,4,\n0,0,0,0,0,0,1,0,0,0,\n0,0,0,0,0,0,1,1,5,1,\n0,0,0,0,0,0,1'
 };
 
 game.state.start('boot');
