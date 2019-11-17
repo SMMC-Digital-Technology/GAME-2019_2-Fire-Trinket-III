@@ -298,7 +298,7 @@ var level1State = {
         rpgRocket.body.velocity.x = (Math.floor(alien1.x / 100) - Math.floor(rpg.x / 100)) * 60;
         rpgRocket.body.velocity.y = (Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100)) * 60;
       } else {
-        console.log("Not enough ammo");
+        console.log("Not enough ammo boomer");
       }
     }
   }

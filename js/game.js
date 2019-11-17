@@ -17,6 +17,7 @@ game.state.add('gameover', gameoverState);
 game.global = {
   //   creates the different variables to tell diffrerent parts of the story, which turn it is, and for movving the different characters
   right_side: 1,
+  alien1HP: 3,
   ammo: 1,
   storyStatus: 1,
   turn: 1,
