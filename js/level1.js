@@ -326,6 +326,7 @@ var level1State = {
     if (game.global.alien1HP == 0) {
       alien1.kill();
       game.global.turn = 1;
+      game.global.ammo = 1;
     }
   },
 
