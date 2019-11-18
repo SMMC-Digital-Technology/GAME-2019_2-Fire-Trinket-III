@@ -109,9 +109,45 @@ var level1State = {
     cameraSprite.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(cameraSprite);
     //   creates an invisible sprite which the camera will follow
+
+    playerHP = game.add.sprite(blulethI.x, (blulethI.y - 20), 'playerHPSprite');
+    playerHP.anchor.setTo(0.5, 0.5);
+
+    playerHP.animations.add("playerHP1Sprite", [6], 1, true);
+    playerHP.animations.add("playerHP2Sprite", [5], 1, true);
+    playerHP.animations.add("playerHP3Sprite", [4], 1, true);
+    playerHP.animations.add("playerHP4Sprite", [3], 1, true);
+    playerHP.animations.add("playerHP5Sprite", [3], 1, true);
+    playerHP.animations.add("playerHP6Sprite", [1], 1, true);
+    playerHP.animations.add("playerHP7Sprite", [0], 1, true);
   },
 
   update: function() {
+    playerHP.x = blulethI.x;
+    playerHP.y = blulethI.y - 50;
+    playerHP.scale.x = 0.7;
+    playerHP.scale.y = 0.5;
+
+    if (game.global.playerHP == 7) {
+      playerHP.animations.play("playerHP7Sprite")
+    } else if (game.global.playerHP == 6) {
+      playerHP.animations.play("playerHP6Sprite")
+    } else if (game.global.playerHP == 5) {
+      playerHP.animations.play("playerHP5Sprite")
+    } else if (game.global.playerHP == 4) {
+      playerHP.animations.play("playerHP4Sprite")
+    } else if (game.global.playerHP == 3) {
+      playerHP.animations.play("playerHP3Sprite")
+    } else if (game.global.playerHP == 2) {
+      playerHP.animations.play("playerHP2Sprite")
+    } else if (game.global.playerHP == 1) {
+      playerHP.animations.play("playerHP1Sprite")
+    }
+
+
+    game.physics.arcade.collide(blulethI, layer);
+    game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
+    game.physics.arcade.collide(blulethI, alien1Body, this.alien1HitPlayer, null, this);
 
     console.log(game.global.charX + "X");
     console.log(game.global.charY + 'Y');
@@ -172,7 +208,18 @@ var level1State = {
       blulethI.scale.x = -3;
     }
 
-    //   makes sure the button you click on always follow the body that has physics
+    if (game.global.ammo >= 1 && alien1Body.x > 50) {
+      alien1Body.body.velocity.x = -80;
+    }
+
+    if (game.global.ammo == 0 && game.global.alien1HP > 0 && game.global.alien1HP < 3) {
+      alien1Body.body.velocity.x = 80;
+    }
+
+    if (alien1Body.x < 50) {
+      alien1Body.body.velocity.x = 0;
+    }
+
     bluleth.x = blulethI.x;
     bluleth.y = blulethI.y;
 
@@ -267,6 +314,19 @@ var level1State = {
       game.global.storyStatus = 3;
     }
   },
+
+  alien1HitPlayer: function() {
+    blulethI.body.velocity.x = 0;
+
+    game.global.playerHP = game.global.playerHP - 1;
+    console.log("Ouch, you've been hit!");
+    console.log("PlayerHP = " + game.global.playerHP);
+    game.global.ammo = game.global.ammo + 1;
+    console.log("Ammo: " + game.global.ammo);
+    console.log("your turn!")
+  },
+
+
 
   terminalAActivate: function(blulethI, terminalA) {
     //   this changes a variable when Bluleth touches the terminals
