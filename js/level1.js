@@ -107,7 +107,8 @@ var level1State = {
     //   allows us to use the mouse to control the character
     game.input.mouse.capture = true;
 
-    playerHP = game.add.spritesheet(blulethI.x, (blulethI.y - 20), 'playerHPSprite');
+    playerHP = game.add.sprite(blulethI.x, (blulethI.y - 20), 'playerHPSprite');
+    playerHP.anchor.setTo(0.5, 0.5);
 
     playerHP.animations.add("playerHP1Sprite",[6], 1, true);
     playerHP.animations.add("playerHP2Sprite",[5], 1, true);
@@ -121,6 +122,10 @@ var level1State = {
   },
 
   update: function() {
+    playerHP.x = blulethI.x;
+    playerHP.y = blulethI.y - 50;
+    playerHP.scale.x = 0.5;
+    playerHP.scale.y = 0.5;
 
     if (game.global.playerHP == 7) {
       playerHP.animations.play("playerHP7Sprite")
@@ -138,10 +143,6 @@ var level1State = {
       playerHP.animations.play("playerHP1Sprite")
     }
 
-    if (game.global.playerHP == 1) {
-      game.add.sprite();
-      game.
-    }
 
     game.physics.arcade.collide(blulethI, layer);
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
