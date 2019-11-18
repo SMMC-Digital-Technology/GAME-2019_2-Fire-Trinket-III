@@ -106,9 +106,43 @@ var level1State = {
 
     //   allows us to use the mouse to control the character
     game.input.mouse.capture = true;
+
+    playerHP = game.add.spritesheet(blulethI.x, (blulethI.y - 20), 'playerHPSprite');
+
+    playerHP.animations.add("playerHP1Sprite",[6], 1, true);
+    playerHP.animations.add("playerHP2Sprite",[5], 1, true);
+    playerHP.animations.add("playerHP3Sprite",[4], 1, true);
+    playerHP.animations.add("playerHP4Sprite",[3], 1, true);
+    playerHP.animations.add("playerHP5Sprite",[3], 1, true);
+    playerHP.animations.add("playerHP6Sprite",[1], 1, true);
+    playerHP.animations.add("playerHP7Sprite",[0], 1, true);
+
+
   },
 
   update: function() {
+
+    if (game.global.playerHP == 7) {
+      playerHP.animations.play("playerHP7Sprite")
+    } else if (game.global.playerHP == 6) {
+      playerHP.animations.play("playerHP6Sprite")
+    } else if (game.global.playerHP == 5) {
+      playerHP.animations.play("playerHP5Sprite")
+    } else if (game.global.playerHP == 4) {
+      playerHP.animations.play("playerHP4Sprite")
+    } else if (game.global.playerHP == 3) {
+      playerHP.animations.play("playerHP3Sprite")
+    } else if (game.global.playerHP == 2) {
+      playerHP.animations.play("playerHP2Sprite")
+    } else if (game.global.playerHP == 1) {
+      playerHP.animations.play("playerHP1Sprite")
+    }
+
+    if (game.global.playerHP == 1) {
+      game.add.sprite();
+      game.
+    }
+
     game.physics.arcade.collide(blulethI, layer);
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
     game.physics.arcade.collide(blulethI, alien1Body, this.alien1HitPlayer, null, this);
