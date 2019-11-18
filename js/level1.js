@@ -124,7 +124,7 @@ var level1State = {
   update: function() {
     playerHP.x = blulethI.x;
     playerHP.y = blulethI.y - 50;
-    playerHP.scale.x = 0.5;
+    playerHP.scale.x = 0.7;
     playerHP.scale.y = 0.5;
 
     if (game.global.playerHP == 7) {
