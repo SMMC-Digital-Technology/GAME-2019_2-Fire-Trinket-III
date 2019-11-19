@@ -181,6 +181,7 @@ var level1State = {
 
     //   makes bluleth not able to walk through walls
     game.physics.arcade.collide(blulethI, layer);
+    game.physics.arcade.collide(rpgRocket, layer, this.attackFail, null, this);
 
     //   runs a function when the alien is hit
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
@@ -205,6 +206,7 @@ var level1State = {
     if (game.global.alien1HP == 0) {
       alien1.kill();
       alien1Body.kill();
+      game.global.turn = 1;
     }
 
     alien1.x = alien1Body.x;
@@ -228,20 +230,37 @@ var level1State = {
       blulethI.scale.x = -3;
     }
 
-    if (game.global.ammo >= 1 && alien1Body.x > 50) {
-      alien1Body.body.velocity.x = -80;
-    }
-
-    if (game.global.ammo == 0 && game.global.alien1HP > 0 && game.global.alien1HP < 3) {
-      alien1Body.body.velocity.x = 80;
-    }
-
-    if (alien1Body.x < 50) {
-      alien1Body.body.velocity.x = 0;
-    }
-
     bluleth.x = blulethI.x;
     bluleth.y = blulethI.y;
+
+    if (game.global.playerHP == 0) {
+      game.state.start('gameover');
+    }
+
+
+    if (game.global.turn == 0) {
+      if (game.global.ammo > 0 && alien1Body.x > 60) {
+        alien1Body.body.velocity.x = -80;
+      }
+
+      if (game.global.ammo == 0 && game.global.alien1HP > 0) {
+        alien1Body.body.velocity.x = 80;
+      }
+
+      if (alien1Body.x < 50) {
+            alien1Body.body.velocity.x = 0;
+            alien1Body.x = alien1Body.x + 5;
+            game.global.turn = 1;
+      }
+    }
+
+    if (game.global.ammo == 0) {
+      game.global.turn = 0;
+    }
+
+    if (game.global.turn == 1) {
+      game.global.ammo = 1;
+    }
 
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1) {
       console.log(this.input.activePointer.x + "x");
@@ -365,16 +384,28 @@ var level1State = {
     }
   },
 
+  attackFail: function(rpgRocket, layer) {
+    rpgRocket.alpha = 0;
+    rpgRocket.x = -100;
+    rpgRocket.y = -100;
+  },
+
   hitAlien1: function(rpgRocket, alien1Body) {
     //   This is what happens when the alien is hit with the rocket
     game.global.alien1HP = game.global.alien1HP - 1;
     rpgRocket.alpha = 0;
-    rpgRocket.x = 0;
-    rpgRocket.y = 0;
+    rpgRocket.x = -100;
+    rpgRocket.y = -100;
     console.log("alien HP = " + game.global.alien1HP);
+
+    game.global.turn = 0;
+    console.log("their turn!!")
+    game.global.ammo = 0;
 
     if (game.global.alien1HP == 0) {
       alien1.kill();
+      game.global.turn = 1;
+      game.global.ammo = 1;
     }
   },
 
@@ -453,8 +484,7 @@ var level1State = {
     rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien1.x, alien1.y);
     if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
       console.log('Bluleth Is Attacking Alien 1');
-      if (game.global.ammo >= 1) {
-        game.global.ammo = game.global.ammo - 1;
+      if (game.global.ammo == 1) {
         rpgRocket.x = rpg.x;
         rpgRocket.y = rpg.y;
         rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien1.x, alien1.y);
@@ -463,7 +493,7 @@ var level1State = {
         rpgRocket.body.velocity.x = (Math.floor(alien1.x / 100) - Math.floor(rpg.x / 100)) * 60;
         rpgRocket.body.velocity.y = (Math.floor(alien1.y / 100) - Math.floor(rpg.y / 100)) * 60;
       } else {
-        console.log("Not enough ammo");
+        console.log("Not enough ammo boomer");
       }
     }
   }
