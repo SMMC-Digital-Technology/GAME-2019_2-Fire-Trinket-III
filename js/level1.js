@@ -213,6 +213,10 @@ var level1State = {
     bluleth.x = blulethI.x;
     bluleth.y = blulethI.y;
 
+    if (game.global.playerHP == 0) {
+      game.state.start('gameover');
+    }
+
 
     if (game.global.turn == 0) {
       if (game.global.ammo > 0 && alien1Body.x > 60) {
