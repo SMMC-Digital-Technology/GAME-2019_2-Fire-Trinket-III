@@ -43,7 +43,7 @@ var level1State = {
 
     //   creates the red doors and terminals
     wallB = game.add.sprite(800, 1000, 'wall');
-    terminalB = game.add.sprite(1000, 900, 'wall');
+    terminalB = game.add.sprite(900, 800, 'wall');
 
     game.physics.arcade.enable(wallB);
     wallB.body.immovable = true;
@@ -81,13 +81,6 @@ var level1State = {
     blulethMove2.anchor.setTo(0.5, 0.5);
     blulethMove2.scale.x = 2;
     blulethMove2.scale.y = 2;
-
-    blulethMove3 = game.add.sprite(350, 1050, 'moveTool');
-    game.physics.arcade.enable(blulethMove3);
-    blulethMove3.anchor.setTo(0.5, 0.5);
-    blulethMove3.scale.x = 2;
-    blulethMove3.scale.y = 2;
-
 
     //   creates an enemy with physics
     alien1 = game.add.button(50, 450, "planet1");
@@ -170,7 +163,6 @@ var level1State = {
 
     game.physics.arcade.collide(blulethMove1, layer);
     game.physics.arcade.collide(blulethMove2, layer);
-    game.physics.arcade.collide(blulethMove3, layer);
 
     //   makes sure the camera can scroll with the camera sprite
     game.camera.follow(cameraSprite);
@@ -201,7 +193,7 @@ var level1State = {
     game.physics.arcade.overlap(blulethI, wallA1, this.wallABlock, null, this);
     game.physics.arcade.overlap(blulethI, wallA2, this.wallABlock, null, this);
 
-    game.physics.arcade.collide(blulethI, wallB, this.wallBBlock, null, this);
+    game.physics.arcade.overlap(blulethI, wallB, this.wallBBlock, null, this);
 
     if (game.global.alien1HP == 0) {
       alien1.kill();
@@ -248,9 +240,9 @@ var level1State = {
       }
 
       if (alien1Body.x < 50) {
-            alien1Body.body.velocity.x = 0;
-            alien1Body.x = alien1Body.x + 5;
-            game.global.turn = 1;
+        alien1Body.body.velocity.x = 0;
+        alien1Body.x = alien1Body.x + 5;
+        game.global.turn = 1;
       }
     }
 
@@ -263,29 +255,58 @@ var level1State = {
     }
 
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1) {
+      game.global.mouseX = Math.floor(this.input.mousePointer.x / 100);
+      game.global.mouseY = Math.floor((this.input.mousePointer.y + game.global.charY) / 100);
+
+      game.global.bluX = Math.floor(blulethI.x / 100);
+      game.global.bluY = Math.floor(blulethI.y / 100);
+
       console.log(this.input.activePointer.x + "x");
       console.log(this.input.activePointer.y + "y");
-      if (Math.abs(Math.floor((this.input.mousePointer.x + 50) / 100 - blulethI.x / 100)) + Math.abs(Math.floor((this.input.mousePointer.y + game.global.charY + 50) / 100 - blulethI.y / 100)) < 4) {
-        if (game.global.char == 'bluleth') {
+
+      console.log(game.global.bluX);
+      console.log(game.global.bluY);
+      console.log(game.global.mouseX);
+      console.log(game.global.mouseY);
+
+      if (Math.abs(game.global.bluX - game.global.mouseX) + Math.abs(game.global.bluY - game.global.mouseY) < 4 && game.global.moving == 1) {
+        if (game.global.bluX !== game.global.mouseX) {
+          if (game.global.char == 'bluleth') {
+            game.global.moving = 2;
+
+            //   the movement around corners works by creating two L's with invisible sprites and if one of them collide with a wall
+            //   it will use the other path, if both of them collide with a wall the player cannot move to where they are trying to move to
+            //   but if they both are able to make it to their destination the player moves diagonally to their target
+
+            alien1.onInputUp.add(this.attackalien1);
+            blulethMove1.x = blulethI.x;
+            blulethMove1.y = blulethI.y;
+            blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
+
+            blulethMove2.x = blulethI.x;
+            blulethMove2.y = blulethI.y;
+            blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
+
+            game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementA, this);
+          } else {
+            console.log('no character');
+          }
+        } else if (game.global.bluY !== game.global.mouseY) {
+          game.global.moving = 2;
+
           alien1.onInputUp.add(this.attackalien1);
           blulethMove1.x = blulethI.x;
           blulethMove1.y = blulethI.y;
-          blulethMove1.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(blulethI.x / 100)) * 60;
+          blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
 
           blulethMove2.x = blulethI.x;
           blulethMove2.y = blulethI.y;
-          blulethMove2.body.velocity.y = (Math.floor((this.input.mousePointer.y + game.global.charY) / 100) - Math.floor(blulethI.y / 100)) * 60;
+          blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
 
-          game.time.events.add(Phaser.Timer.SECOND * (10 / 6), this.cornerMovementA, this);
-          console.log('debug 2');
-        } else if (Math.abs(Math.floor((this.input.mousePointer.x + 50) / 100 - blulethI.x / 100)) + Math.abs(Math.floor((this.input.mousePointer.y + game.global.charY + 50) / 100 - blulethI.y / 100)) == 3) {
-          console.log('debug 3');
+          game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementA, this);
         }
-      } else {
-        console.log('no character');
       }
     }
-
 
     if (game.input.mousePointer.y > 650 && cameraSprite.y < 800) {
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 650);
@@ -300,9 +321,9 @@ var level1State = {
 
   render: function() {
     //   comment this to remove camera debug info
-    game.debug.cameraInfo(game.camera, 32, 32);
+    //   game.debug.cameraInfo(game.camera, 32, 32);
 
-    game.debug.pointer(game.input.mousePointer);
+    //   game.debug.pointer(game.input.mousePointer);
   },
 
   // this is how you write a function
@@ -316,13 +337,19 @@ var level1State = {
 
   cornerMovementA: function() {
     blulethMove1.body.velocity.x = 0;
-    blulethMove1.body.velocity.y = (Math.floor((this.input.mousePointer.y + game.global.charY) / 100) - Math.floor(blulethI.y / 100)) * 60;
-    console.log('asd');
+    blulethMove1.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
+    console.log('Velocity Swaps');
 
     blulethMove2.body.velocity.y = 0;
-    blulethMove2.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(blulethI.x / 100)) * 60;
+    blulethMove2.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
 
-    game.time.events.add(Phaser.Timer.SECOND * (10 / 6), this.cornerMovementB, this);
+    console.log(Math.floor(blulethMove1.x / 100) == game.global.mouseX);
+    console.log(Math.floor(blulethMove1.x / 100) - game.global.mouseX);
+
+    console.log(Math.floor(blulethMove2.y / 100) == game.global.mouseY);
+    console.log(Math.floor(blulethMove2.y / 100) - game.global.mouseY);
+
+    game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementB, this);
   },
 
   cornerMovementB: function() {
@@ -330,32 +357,33 @@ var level1State = {
 
     blulethMove2.body.velocity.x = 0;
 
-    console.log(Math.floor(blulethMove1.x / 100) == Math.floor(this.input.mousePointer.x / 100));
+    console.log(game.global.bluY == game.global.mouseY);
 
-    console.log(Math.floor(blulethMove1.x / 100) == Math.floor(this.input.mousePointer.x / 100));
+    console.log(game.global.bluX == game.global.mouseX);
 
-    if (Math.floor(blulethMove1.x / 100) == Math.floor(this.input.mousePointer.x / 100) && Math.floor((blulethMove1.y) / 100) == Math.floor((this.input.mousePointer.y + game.global.charY) / 100) && Math.floor(blulethMove2.x / 100) == Math.floor(this.input.mousePointer.x / 100) && Math.floor((blulethMove2.y) / 100) == Math.floor((this.input.mousePointer.y + game.global.charY) / 100)) {
-      blulethI.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(blulethI.x / 100)) * 60;
-      blulethI.body.velocity.y = (Math.floor((this.input.mousePointer.y + game.global.charY) / 100) - Math.floor(blulethI.y / 100)) * 60;
+    if (Math.floor(blulethMove1.x / 100) == game.global.mouseX && Math.floor(blulethMove1.y / 100) == game.global.mouseY && Math.floor(blulethMove2.x / 100) == game.global.mouseX && Math.floor(blulethMove2.y / 100) == game.global.mouseY) {
+      blulethI.body.velocity.x = Math.floor(game.global.mouseX - game.global.bluX) * 60;
+      blulethI.body.velocity.y = Math.floor(game.global.mouseY - game.global.bluY) * 60;
 
       console.log('Test1');
 
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
-    } else if (Math.floor(blulethMove1.x / 100) == Math.floor(this.input.mousePointer.x / 100) && Math.floor((blulethMove1.y) / 100) == Math.floor((this.input.mousePointer.y + game.global.charY) / 100)) {
-      blulethI.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(blulethI.x / 100)) * 60;
+    } else if (Math.floor(blulethMove1.x / 100) == game.global.mouseX && Math.floor((blulethMove1.y) / 100) == game.global.mouseY) {
+      blulethI.body.velocity.x = (Math.floor(game.global.mouseX) - Math.floor(blulethI.x / 100)) * 60;
 
       console.log('Test2');
 
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.cornerMovementC, this);
-    } else if (Math.floor(blulethMove2.x / 100) == Math.floor(this.input.mousePointer.x / 100) && Math.floor((blulethMove2.y) / 100) == Math.floor((this.input.mousePointer.y + game.global.charY) / 100)) {
-      blulethI.body.velocity.y = (Math.floor((this.input.mousePointer.y + game.global.charY) / 100) - Math.floor(blulethI.y / 100)) * 60;
+    } else if (Math.floor(blulethMove2.x / 100) == game.global.mouseX && Math.floor(blulethMove2.y / 100) == game.global.mouseY) {
+      blulethI.body.velocity.y = (game.global.mouseY - game.global.bluY) * 60;
 
       console.log('Test3');
 
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.cornerMovementD, this);
     } else {
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
       console.log('Invalid Moving Spot');
     }
   },
@@ -363,7 +391,7 @@ var level1State = {
   cornerMovementC: function() {
     blulethI.body.velocity.x = 0;
 
-    blulethI.body.velocity.y = (Math.floor((this.input.mousePointer.y + game.global.charY) / 100) - Math.floor(blulethI.y / 100)) * 60;
+    blulethI.body.velocity.y = (game.global.mouseY - game.global.bluY) * 60;
 
     game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
   },
@@ -371,7 +399,7 @@ var level1State = {
   cornerMovementD: function() {
     blulethI.body.velocity.y = 0;
 
-    blulethI.body.velocity.x = (Math.floor(this.input.mousePointer.x / 100) - Math.floor(blulethI.x / 100)) * 60;
+    blulethI.body.velocity.x = (game.global.mouseX - game.global.bluX) * 60;
     game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
   },
 
@@ -413,7 +441,7 @@ var level1State = {
     //   This stops the characters velocity after they move
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
-    game.global.moving = 0;
+    game.global.moving = 1;
     blulethI.x = Math.floor(blulethI.x / 100) * 100 + 50;
     blulethI.y = Math.floor(blulethI.y / 100) * 100 + 50;
     if (game.global.storyStatus == 2) {
@@ -441,10 +469,8 @@ var level1State = {
   },
 
   terminalBActivate: function(blulethI, terminalB) {
-    if (game.global.wallB == 0) {
-      game.global.wallB = 1;
-      console.log(game.global.wallB);
-    }
+    game.global.wallB = 1;
+    console.log(game.global.wallB);
   },
 
   wallABlock: function(blulethI, wallA1) {

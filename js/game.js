@@ -23,8 +23,15 @@ game.global = {
   storyStatus: 1,
   turn: 1,
   moving: 0,
+  wallA: 0,
+  wallB: 0,
   charX: 0,
   charY: 0,
+  char: 'bluleth',
+  mouseX: 0,
+  mouseY: 0,
+  bluX: 0,
+  bluY: 0,
   //   this array creates a tilemap where \n creates a new line, with each number representing a different tile on the spritesheet
   level1TMA: '0,0,4,0,0,0,10,0,0,0,\n6,6,8,0,0,0,4,0,0,0,\n0,0,0,0,0,0,12,6,6,6,\n14,0,0,0,0,0,9,0,0,0,\n0,0,0,0,0,0,0,0,0,0,\n8,0,0,7,6,6,11,8,0,7\n0,0,0,0,0,0,10,0,0,0,\n0,0,0,0,0,0,10,0,0,0,\n6,6,8,0,0,7,13,0,0,15,\n1,1,1,2,2,1,10,0,0,0,\n2,2,2,2,2,1,12,6,5,6,\n1,1,1,1,1,1,10,3,3,3'
 };
