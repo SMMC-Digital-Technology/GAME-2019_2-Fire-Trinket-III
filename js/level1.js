@@ -1,4 +1,4 @@
-/**
+1000/**
  * A single level of the game.
  * You will need multiple copies of this for each level you
  * want to include.
@@ -60,6 +60,10 @@ var level1State = {
     blulethI.scale.y = 2;
     blulethI.smoothed = false;
 
+    endTile = game.add.sprite(700, 1100, "wall");
+    game.physics.arcade.enable(endTile);
+    endTile.scale.x = 3;
+
     //   creates the button which the player will click on to control
     bluleth = game.add.button(350, 650, 'planet3');
     bluleth.anchor.setTo(0.5, 0.5);
@@ -70,33 +74,81 @@ var level1State = {
     bluleth.onInputUp.add(this.blulethMove);
 
     //   creates 3 invisible sprites which help with movement around corners
-    blulethMove1 = game.add.sprite(350, 1050, 'moveTool');
+    blulethMove1 = game.add.sprite(350, 1050, 'planet2');
     game.physics.arcade.enable(blulethMove1);
     blulethMove1.anchor.setTo(0.5, 0.5);
     blulethMove1.scale.x = 2;
     blulethMove1.scale.y = 2;
 
-    blulethMove2 = game.add.sprite(350, 1050, 'moveTool');
+    blulethMove2 = game.add.sprite(350, 1050, 'planet1');
     game.physics.arcade.enable(blulethMove2);
     blulethMove2.anchor.setTo(0.5, 0.5);
     blulethMove2.scale.x = 2;
     blulethMove2.scale.y = 2;
 
+    //creates allies to save and become part of your team
+
     //   creates an enemy with physics
-    alien1 = game.add.button(50, 450, "planet1");
+    alien1 = game.add.button(50, 750, "planet1");
     alien1.scale.x = 2;
     alien1.scale.y = 2;
     alien1.anchor.setTo(0.5, 0.5);
     alien1.smoothed = false;
     game.physics.arcade.enable(alien1);
 
-    alien1Body = game.add.sprite(50, 450, "planet1");
+    alien1Body = game.add.sprite(50, 750, "planet1");
     alien1Body.scale.x = 2;
     alien1Body.scale.y = 2;
     alien1Body.anchor.setTo(0.5, 0.5);
     alien1Body.smoothed = false;
     game.physics.arcade.enable(alien1Body);
     alien1Body.body.immovable = true;
+
+    alien2 = game.add.button(450, 150, "planet1");
+    alien2.scale.x = 2;
+    alien2.scale.y = 2;
+    alien2.anchor.setTo(0.5, 0.5);
+    alien2.smoothed = false;
+    game.physics.arcade.enable(alien2);
+
+    alien2Body = game.add.sprite(450, 150, "planet1");
+    alien2Body.scale.x = 2;
+    alien2Body.scale.y = 2;
+    alien2Body.anchor.setTo(0.5, 0.5);
+    alien2Body.smoothed = false;
+    game.physics.arcade.enable(alien2Body);
+    alien2Body.body.immovable = true;
+
+    alien3 = game.add.button(350, 550, "planet1");
+    alien3.scale.x = 2;
+    alien3.scale.y = 2;
+    alien3.anchor.setTo(0.5, 0.5);
+    alien3.smoothed = false;
+    game.physics.arcade.enable(alien3);
+
+    alien3Body = game.add.sprite(250, 450, "planet1");
+    alien3Body.scale.x = 2;
+    alien3Body.scale.y = 2;
+    alien3Body.anchor.setTo(0.5, 0.5);
+    alien3Body.smoothed = false;
+    game.physics.arcade.enable(alien3Body);
+    alien3Body.body.immovable = true;
+
+    alien4 = game.add.button(750, 350, "planet1");
+    alien4.scale.x = 2;
+    alien4.scale.y = 2;
+    alien4.anchor.setTo(0.5, 0.5);
+    alien4.smoothed = false;
+    game.physics.arcade.enable(alien4);
+
+    alien4Body = game.add.sprite(750, 350, "planet1");
+    alien4Body.scale.x = 2;
+    alien4Body.scale.y = 2;
+    alien4Body.anchor.setTo(0.5, 0.5);
+    alien4Body.smoothed = false;
+    game.physics.arcade.enable(alien4Body);
+    alien4Body.body.immovable = true;
+
 
     rpg = game.add.sprite(0, 0, 'RPGAsset');
     rpg.anchor.setTo(0.5, 0.5);
@@ -160,6 +212,7 @@ var level1State = {
     game.physics.arcade.collide(blulethI, layer);
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
     game.physics.arcade.collide(blulethI, alien1Body, this.alien1HitPlayer, null, this);
+    game.physics.arcade.collide(blulethI, endTile, this.finishLevel, null, this);
 
     game.physics.arcade.collide(blulethMove1, layer);
     game.physics.arcade.collide(blulethMove2, layer);
@@ -203,6 +256,15 @@ var level1State = {
 
     alien1.x = alien1Body.x;
     alien1.y = alien1Body.y;
+
+    alien2.x = alien2Body.x;
+    alien2.y = alien2Body.y;
+
+    alien3.x = alien3Body.x;
+    alien3.y = alien3Body.y;
+
+    alien4.x = alien4Body.x;
+    alien4.y = alien4Body.y;
 
     if (alien1.x > blulethI.x) {
       game.global.right_side = 1;
@@ -281,13 +343,13 @@ var level1State = {
             alien1.onInputUp.add(this.attackalien1);
             blulethMove1.x = blulethI.x;
             blulethMove1.y = blulethI.y;
-            blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
+            blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
 
             blulethMove2.x = blulethI.x;
             blulethMove2.y = blulethI.y;
-            blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
+            blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
 
-            game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementA, this);
+            game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
           } else {
             console.log('no character');
           }
@@ -297,13 +359,13 @@ var level1State = {
           alien1.onInputUp.add(this.attackalien1);
           blulethMove1.x = blulethI.x;
           blulethMove1.y = blulethI.y;
-          blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
+          blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
 
           blulethMove2.x = blulethI.x;
           blulethMove2.y = blulethI.y;
-          blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
+          blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
 
-          game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementA, this);
+          game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
         }
       }
     }
@@ -337,11 +399,11 @@ var level1State = {
 
   cornerMovementA: function() {
     blulethMove1.body.velocity.x = 0;
-    blulethMove1.body.velocity.y = (game.global.mouseY - game.global.bluY) * 110;
+    blulethMove1.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
     console.log('Velocity Swaps');
 
     blulethMove2.body.velocity.y = 0;
-    blulethMove2.body.velocity.x = (game.global.mouseX - game.global.bluX) * 110;
+    blulethMove2.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
 
     console.log(Math.floor(blulethMove1.x / 100) == game.global.mouseX);
     console.log(Math.floor(blulethMove1.x / 100) - game.global.mouseX);
@@ -349,7 +411,7 @@ var level1State = {
     console.log(Math.floor(blulethMove2.y / 100) == game.global.mouseY);
     console.log(Math.floor(blulethMove2.y / 100) - game.global.mouseY);
 
-    game.time.events.add(Phaser.Timer.SECOND * 1, this.cornerMovementB, this);
+    game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementB, this);
   },
 
   cornerMovementB: function() {
@@ -491,6 +553,11 @@ var level1State = {
       console.log('Door B is Closed' + game.global.wallB);
     }
   },
+
+  finishLevel: function(blulethI, endTile) {
+    game.state.start("level2")
+  },
+
 
   attackalien1: function() {
     //   This points the rpg towards the alien
