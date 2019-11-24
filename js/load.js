@@ -11,6 +11,7 @@ var loadState = {
     game.load.image('ship1', 'assets/Ship_1.png');
 
     game.load.image('wall', 'assets/wall.png');
+    game.load.image('moveTool', 'assets/movingTool.png');
     game.load.image('tiles', 'assets/level1tilemap.png');
 
     game.load.image('planet1', 'assets/Planet_1.png');
@@ -27,6 +28,8 @@ var loadState = {
 
     game.load.spritesheet('rocketAsset', 'assets/Rocket.png', 32, 32);
     game.load.image('RPGAsset', 'assets/RPG.png');
+
+    game.load.spritesheet("playerHPSprite", "assets/PlayerHP.png", 96, 32);
     //   preloads everything into the game
   },
 
