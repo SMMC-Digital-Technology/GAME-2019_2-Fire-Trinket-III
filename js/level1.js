@@ -80,13 +80,13 @@ var level1State = {
     bluleth.onInputUp.add(this.blulethMove);
 
     //   creates 3 invisible sprites which help with movement around corners
-    blulethMove1 = game.add.sprite(350, 1050, 'planet2');
+    blulethMove1 = game.add.sprite(350, 1050, 'moveTool');
     game.physics.arcade.enable(blulethMove1);
     blulethMove1.anchor.setTo(0.5, 0.5);
     blulethMove1.scale.x = 2;
     blulethMove1.scale.y = 2;
 
-    blulethMove2 = game.add.sprite(350, 1050, 'planet1');
+    blulethMove2 = game.add.sprite(350, 1050, 'moveTool');
     game.physics.arcade.enable(blulethMove2);
     blulethMove2.anchor.setTo(0.5, 0.5);
     blulethMove2.scale.x = 2;
@@ -131,7 +131,7 @@ var level1State = {
     game.physics.arcade.enable(alien2Body);
     alien2Body.body.immovable = true;
 
-    alien3 = game.add.button(350, 550, "planet1");
+    alien3 = game.add.button(250, 450, "planet1");
     alien3.scale.x = 2;
     alien3.scale.y = 2;
     alien3.anchor.setTo(0.5, 0.5);
@@ -177,7 +177,7 @@ var level1State = {
     game.physics.arcade.enable(alien2Body);
     alien2Body.body.immovable = true;
 
-    alien3 = game.add.button(350, 550, "planet1");
+    alien3 = game.add.button(250, 450, "planet1");
     alien3.scale.x = 2;
     alien3.scale.y = 2;
     alien3.anchor.setTo(0.5, 0.5);
@@ -378,15 +378,17 @@ var level1State = {
 
           game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alienMovement1, this);
         }
+      } else {
+        game.global.turn = 1;
       }
     }
 
     if (game.global.turn == 0) {
-      game.global.ammo = 1;
+      game.global.ammo = 0;
     }
 
     if (game.global.turn == 1) {
-      game.global.ammo = 0;
+      game.global.ammo = 1;
     }
 
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1 && game.global.turn == 1) {
@@ -556,7 +558,7 @@ var level1State = {
   },
 
   blulethMove: function() {
-    //   This function runs when bluleth movves
+    //   This function runs when bluleth moves
     if (game.global.turn == 1 && game.global.moving == 0) {
       console.log('bluleth is about to move');
       game.global.moving = 1;
@@ -641,6 +643,8 @@ var level1State = {
       game.global.storyStatus = 3;
     }
     game.global.turn = 0;
+    game.global.moving = 0;
+
     console.log('turn ' + game.global.turn);
 
     game.global.alien1Moved = 1;
