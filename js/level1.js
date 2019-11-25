@@ -1,3 +1,4 @@
+1000
 /**
  * A single level of the game.
  * You will need multiple copies of this for each level you
@@ -65,6 +66,10 @@ var level1State = {
     game.physics.arcade.enable(endTile);
     endTile.scale.x = 3;
 
+    endTile = game.add.sprite(700, 1100, "wall");
+    game.physics.arcade.enable(endTile);
+    endTile.scale.x = 3;
+
     //   creates the button which the player will click on to control
     bluleth = game.add.button(350, 650, 'planet3');
     bluleth.anchor.setTo(0.5, 0.5);
@@ -75,13 +80,13 @@ var level1State = {
     bluleth.onInputUp.add(this.blulethMove);
 
     //   creates 3 invisible sprites which help with movement around corners
-    blulethMove1 = game.add.sprite(350, 1050, 'moveTool');
+    blulethMove1 = game.add.sprite(350, 1050, 'planet2');
     game.physics.arcade.enable(blulethMove1);
     blulethMove1.anchor.setTo(0.5, 0.5);
     blulethMove1.scale.x = 2;
     blulethMove1.scale.y = 2;
 
-    blulethMove2 = game.add.sprite(350, 1050, 'moveTool');
+    blulethMove2 = game.add.sprite(350, 1050, 'planet1');
     game.physics.arcade.enable(blulethMove2);
     blulethMove2.anchor.setTo(0.5, 0.5);
     blulethMove2.scale.x = 2;
@@ -110,6 +115,52 @@ var level1State = {
 
     alienMove2 = game.add.sprite(-1000, -1000, 'moveTool');
     game.physics.arcade.enable(alienMove2);
+
+    alien2 = game.add.button(450, 150, "planet1");
+    alien2.scale.x = 2;
+    alien2.scale.y = 2;
+    alien2.anchor.setTo(0.5, 0.5);
+    alien2.smoothed = false;
+    game.physics.arcade.enable(alien2);
+
+    alien2Body = game.add.sprite(450, 150, "planet1");
+    alien2Body.scale.x = 2;
+    alien2Body.scale.y = 2;
+    alien2Body.anchor.setTo(0.5, 0.5);
+    alien2Body.smoothed = false;
+    game.physics.arcade.enable(alien2Body);
+    alien2Body.body.immovable = true;
+
+    alien3 = game.add.button(350, 550, "planet1");
+    alien3.scale.x = 2;
+    alien3.scale.y = 2;
+    alien3.anchor.setTo(0.5, 0.5);
+    alien3.smoothed = false;
+    game.physics.arcade.enable(alien3);
+
+    alien3Body = game.add.sprite(250, 450, "planet1");
+    alien3Body.scale.x = 2;
+    alien3Body.scale.y = 2;
+    alien3Body.anchor.setTo(0.5, 0.5);
+    alien3Body.smoothed = false;
+    game.physics.arcade.enable(alien3Body);
+    alien3Body.body.immovable = true;
+
+    alien4 = game.add.button(750, 350, "planet1");
+    alien4.scale.x = 2;
+    alien4.scale.y = 2;
+    alien4.anchor.setTo(0.5, 0.5);
+    alien4.smoothed = false;
+    game.physics.arcade.enable(alien4);
+
+    alien4Body = game.add.sprite(750, 350, "planet1");
+    alien4Body.scale.x = 2;
+    alien4Body.scale.y = 2;
+    alien4Body.anchor.setTo(0.5, 0.5);
+    alien4Body.smoothed = false;
+    game.physics.arcade.enable(alien4Body);
+    alien4Body.body.immovable = true;
+
 
     alien2 = game.add.button(450, 150, "planet1");
     alien2.scale.x = 2;
@@ -338,7 +389,7 @@ var level1State = {
       game.global.ammo = 0;
     }
 
-    if (game.input.activePointer.leftButton.isDown && game.global.moving == 1) {
+    if (game.input.activePointer.leftButton.isDown && game.global.moving == 1 && game.global.turn == 1) {
       if (Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien1.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien1.y / 100)) {
         game.global.mouseX = Math.floor(this.input.mousePointer.x / 100);
         game.global.mouseY = Math.floor((this.input.mousePointer.y + game.global.charY) / 100);
@@ -389,7 +440,22 @@ var level1State = {
             blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
 
             game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
+          } else {
+            console.log('no character');
           }
+        } else if (game.global.bluY !== game.global.mouseY) {
+          game.global.moving = 2;
+
+          alien1.onInputUp.add(this.attackalien1);
+          blulethMove1.x = blulethI.x;
+          blulethMove1.y = blulethI.y;
+          blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
+
+          blulethMove2.x = blulethI.x;
+          blulethMove2.y = blulethI.y;
+          blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
+
+          game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
         }
       }
     }
@@ -596,7 +662,7 @@ var level1State = {
     alienMove1.x = -1000;
     alienMove2.x = -1000;
 
-    game.global.turn = 0;
+    game.global.turn = 1;
     game.global.alien1Moved = 0;
 
     alien1Body.x = Math.floor(alien1Body.x / 100) * 100 + 50;

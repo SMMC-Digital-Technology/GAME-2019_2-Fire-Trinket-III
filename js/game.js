@@ -24,6 +24,8 @@ game.global = {
   alienXRelative: 0,
   alienYRelative: 0,
   alien1HP: 3,
+  availMove: 1,
+  charNumber: 1,
   right_side: 1,
   playerHP: 7,
   ammo: 1,
