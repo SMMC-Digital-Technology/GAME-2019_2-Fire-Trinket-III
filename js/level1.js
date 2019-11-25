@@ -184,9 +184,16 @@ var level1State = {
     playerHP.animations.add("playerHP5Sprite", [3], 1, true);
     playerHP.animations.add("playerHP6Sprite", [1], 1, true);
     playerHP.animations.add("playerHP7Sprite", [0], 1, true);
+
+    tutorialScroll = game.add.text(200, 700, "Move Cursor down to the bottom to scroll", {fill :  'white'});
   },
 
   update: function() {
+
+    //makes tutorial of some kind
+
+
+
     playerHP.x = blulethI.x;
     playerHP.y = blulethI.y - 50;
     playerHP.scale.x = 0.7;
