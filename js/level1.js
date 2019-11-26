@@ -491,9 +491,7 @@ var level1State = {
       } else if (blulethI.body.velocity.x != 0) {
         tutorialMove.kill();
         game.global.tutorialStep = 4;
-      } else {
-
-      }
+      } 
     }
 
     if (game.global.tutorialStep == 2) {
