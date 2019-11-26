@@ -250,7 +250,11 @@ var level1State = {
     playerHP.animations.add("playerHP6Sprite", [1], 1, true);
     playerHP.animations.add("playerHP7Sprite", [0], 1, true);
 
-    tutorialScroll = game.add.text(200, 700, "Move Cursor down to the bottom to scroll", {fill :  'white'});
+    tutorialScroll = game.add.text(150, 700, "Move Cursor up or down to scroll", {fill :  'white'});
+    tutorialMove = game.add.text(0, 700, "Click on your charactor and then a tile to move there.\nit must be within 3 tiles of your origin, including walking distance around cornors.", {fill :  'white'});
+    tutorialMove.alpha = 0;
+    tutorialFight = game.add.text(0, 700, "when walking into a radius of ememies they will attack you,\ncan can then attack them by clicking on your charctor and then the enemie.", {fill :  'white'});
+    tutorialFight.alpha = 0;
   },
 
   update: function() {
@@ -484,10 +488,42 @@ var level1State = {
       }
     }
 
+    if (game.global.tutorialStep = 5) {
+      if (game.global.ammo < 1) {
+        tutorialFight.kill();
+      }
+    }
+
+    //if (game.global.tutorialStep == 4) {
+    //  tutorialFight.alpha = 1;
+    //  game.global.tutorialStep = 5;
+    //}
+
+    if (game.global.tutorialStep == 3) {
+      if (blulethI.body.velocity.y != 0) {
+        tutorialMove.kill();
+        game.global.tutorialStep = 4;
+      } else if (blulethI.body.velocity.x != 0) {
+        tutorialMove.kill();
+        game.global.tutorialStep = 4;
+      } else {
+
+      }
+    }
+
+    if (game.global.tutorialStep == 2) {
+      tutorialMove.alpha = 1;
+      game.global.tutorialStep = 3;
+    }
+
     if (game.input.mousePointer.y > 650 && cameraSprite.y < 800) {
+      tutorialScroll.kill();
+      game.global.tutorialStep = 2;
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 650);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else if (game.input.mousePointer.y < 150 && cameraSprite.y > 400) {
+      game.global.tutorialStep = 2;
+      tutorialScroll.kill();
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 150);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else {
@@ -666,6 +702,7 @@ var level1State = {
     }
     game.global.turn = 0;
     game.global.moving = 0;
+
 
     console.log('turn ' + game.global.turn);
 
