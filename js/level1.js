@@ -101,6 +101,7 @@ var level1State = {
     alien1.anchor.setTo(0.5, 0.5);
     alien1.smoothed = false;
     game.physics.arcade.enable(alien1);
+    alien1.onInputUp.add(this.attackalien1);
 
     alien1Body = game.add.sprite(50, 750, "planet1");
     alien1Body.scale.x = 2;
@@ -122,6 +123,7 @@ var level1State = {
     alien2.anchor.setTo(0.5, 0.5);
     alien2.smoothed = false;
     game.physics.arcade.enable(alien2);
+    alien2.onInputUp.add(this.attackalien2);
 
     alien2Body = game.add.sprite(450, 150, "planet1");
     alien2Body.scale.x = 2;
@@ -131,12 +133,19 @@ var level1State = {
     game.physics.arcade.enable(alien2Body);
     alien2Body.body.immovable = true;
 
+    alien2Move1 = game.add.sprite(-1000, -1000, 'moveTool');
+    game.physics.arcade.enable(alien2Move1);
+
+    alien2Move2 = game.add.sprite(-1000, -1000, 'moveTool');
+    game.physics.arcade.enable(alien2Move2);
+
     alien3 = game.add.button(250, 450, "planet1");
-    alien3.scale.x = 2;
-    alien3.scale.y = 2;
+    //alien3.scale.x = 2;
+    //alien3.scale.y = 2;
     alien3.anchor.setTo(0.5, 0.5);
     alien3.smoothed = false;
     game.physics.arcade.enable(alien3);
+    alien3.onInputUp.add(this.attackalien3);
 
     alien3Body = game.add.sprite(250, 450, "planet1");
     alien3Body.scale.x = 2;
@@ -146,12 +155,19 @@ var level1State = {
     game.physics.arcade.enable(alien3Body);
     alien3Body.body.immovable = true;
 
+    alien3Move1 = game.add.sprite(-1000, -1000, 'planet2');
+    game.physics.arcade.enable(alien3Move1);
+
+    alien3Move2 = game.add.sprite(-1000, -1000, 'planet2');
+    game.physics.arcade.enable(alien3Move2);
+
     alien4 = game.add.button(750, 350, "planet1");
     alien4.scale.x = 2;
     alien4.scale.y = 2;
     alien4.anchor.setTo(0.5, 0.5);
     alien4.smoothed = false;
     game.physics.arcade.enable(alien4);
+    alien4.onInputUp.add(this.attackalien4);
 
     alien4Body = game.add.sprite(750, 350, "planet1");
     alien4Body.scale.x = 2;
@@ -161,51 +177,11 @@ var level1State = {
     game.physics.arcade.enable(alien4Body);
     alien4Body.body.immovable = true;
 
+    alien4Move1 = game.add.sprite(-1000, -1000, 'moveTool');
+    game.physics.arcade.enable(alien4Move1);
 
-    alien2 = game.add.button(450, 150, "planet1");
-    alien2.scale.x = 2;
-    alien2.scale.y = 2;
-    alien2.anchor.setTo(0.5, 0.5);
-    alien2.smoothed = false;
-    game.physics.arcade.enable(alien2);
-
-    alien2Body = game.add.sprite(450, 150, "planet1");
-    alien2Body.scale.x = 2;
-    alien2Body.scale.y = 2;
-    alien2Body.anchor.setTo(0.5, 0.5);
-    alien2Body.smoothed = false;
-    game.physics.arcade.enable(alien2Body);
-    alien2Body.body.immovable = true;
-
-    alien3 = game.add.button(250, 450, "planet1");
-    alien3.scale.x = 2;
-    alien3.scale.y = 2;
-    alien3.anchor.setTo(0.5, 0.5);
-    alien3.smoothed = false;
-    game.physics.arcade.enable(alien3);
-
-    alien3Body = game.add.sprite(250, 450, "planet1");
-    alien3Body.scale.x = 2;
-    alien3Body.scale.y = 2;
-    alien3Body.anchor.setTo(0.5, 0.5);
-    alien3Body.smoothed = false;
-    game.physics.arcade.enable(alien3Body);
-    alien3Body.body.immovable = true;
-
-    alien4 = game.add.button(750, 350, "planet1");
-    alien4.scale.x = 2;
-    alien4.scale.y = 2;
-    alien4.anchor.setTo(0.5, 0.5);
-    alien4.smoothed = false;
-    game.physics.arcade.enable(alien4);
-
-    alien4Body = game.add.sprite(750, 350, "planet1");
-    alien4Body.scale.x = 2;
-    alien4Body.scale.y = 2;
-    alien4Body.anchor.setTo(0.5, 0.5);
-    alien4Body.smoothed = false;
-    game.physics.arcade.enable(alien4Body);
-    alien4Body.body.immovable = true;
+    alien4Move2 = game.add.sprite(-1000, -1000, 'moveTool');
+    game.physics.arcade.enable(alien4Move2);
 
 
     rpg = game.add.sprite(0, 0, 'RPGAsset');
@@ -266,17 +242,37 @@ var level1State = {
       playerHP.animations.play("playerHP1Sprite")
     }
 
-
     game.physics.arcade.collide(blulethI, layer);
+    game.physics.arcade.collide(blulethI, endTile, this.finishLevel, null, this);
+
+
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
     game.physics.arcade.collide(blulethI, alien1Body, this.alien1HitPlayer, null, this);
-    game.physics.arcade.collide(blulethI, endTile, this.finishLevel, null, this);
+
+    game.physics.arcade.collide(rpgRocket, alien2Body, this.hitAlien2, null, this);
+    game.physics.arcade.collide(blulethI, alien2Body, this.alien2HitPlayer, null, this);
+
+    game.physics.arcade.collide(rpgRocket, alien3Body, this.hitAlien3, null, this);
+    game.physics.arcade.collide(blulethI, alien3Body, this.alien3HitPlayer, null, this);
+
+    game.physics.arcade.collide(rpgRocket, alien4Body, this.hitAlien4, null, this);
+    game.physics.arcade.collide(blulethI, alien4Body, this.alien4HitPlayer, null, this);
+
 
     game.physics.arcade.collide(blulethMove1, layer);
     game.physics.arcade.collide(blulethMove2, layer);
 
     game.physics.arcade.collide(blulethMove1, alien1Body);
     game.physics.arcade.collide(blulethMove2, alien1Body);
+
+    game.physics.arcade.collide(blulethMove1, alien2Body);
+    game.physics.arcade.collide(blulethMove2, alien2Body);
+
+    game.physics.arcade.collide(blulethMove1, alien3Body);
+    game.physics.arcade.collide(blulethMove2, alien3Body);
+
+    game.physics.arcade.collide(blulethMove1, alien4Body);
+    game.physics.arcade.collide(blulethMove2, alien4Body);
 
     //   makes sure the camera can scroll with the camera sprite
     game.camera.follow(cameraSprite);
@@ -297,8 +293,20 @@ var level1State = {
     game.physics.arcade.collide(alienMove1, layer);
     game.physics.arcade.collide(alienMove2, layer);
 
+    game.physics.arcade.collide(alien2Move1, layer);
+    game.physics.arcade.collide(alien2Move2, layer);
+
+    game.physics.arcade.collide(alien3Move1, layer);
+    game.physics.arcade.collide(alien3Move2, layer);
+
+    game.physics.arcade.collide(alien4Move1, layer);
+    game.physics.arcade.collide(alien4Move2, layer);
+
     //   runs a function when the alien is hit
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
+    game.physics.arcade.collide(rpgRocket, alien2Body, this.hitAlien2, null, this);
+    game.physics.arcade.collide(rpgRocket, alien3Body, this.hitAlien3, null, this);
+    game.physics.arcade.collide(rpgRocket, alien4Body, this.hitAlien4, null, this);
 
     //   makes the rpg on the correct side of bluleth
     if (game.global.right_side == 1) {
@@ -320,7 +328,29 @@ var level1State = {
     if (game.global.alien1HP == 0) {
       alien1.kill();
       alien1Body.kill();
-      game.global.turn = 1;
+      game.global.alien1Moved = 0;
+      game.global.charC1 = 0;
+    }
+
+    if (game.global.alien2HP == 0) {
+      alien2.kill();
+      alien2Body.kill();
+      game.global.alien2Moved = 0;
+      game.global.charC2 = 0;
+    }
+
+    if (game.global.alien3HP == 0) {
+      alien3.kill();
+      alien3Body.kill();
+      game.global.alien3Moved = 0;
+      game.global.charC3 = 0;
+    }
+
+    if (game.global.alien4HP == 0) {
+      alien4.kill();
+      alien4Body.kill();
+      game.global.alien4Moved = 0;
+      game.global.charC4 = 0;
     }
 
     alien1.x = alien1Body.x;
@@ -360,28 +390,165 @@ var level1State = {
       game.state.start('gameover');
     }
 
+    if (game.global.alien1Moved == 0 && game.global.alien2Moved == 0 && game.global.alien3Moved == 0 && game.global.alien4Moved == 0) {
+      console.log('your turn asd');
+
+      game.global.turn = 1;
+      game.global.alien1Moved = 1;
+      game.global.alien2Moved = 1;
+      game.global.alien3Moved = 1;
+      game.global.alien4Moved = 1;
+    }
+    //console.log(game.global.alien1Moved);
+    //console.log(game.global.alien2Moved);
+    console.log(game.global.alien3Moved);
+    //console.log(game.global.alien4Moved);
+
+
+    //console.log(Math.abs(Math.floor(alien3.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien3.y / 100) - Math.floor(blulethI.y / 100)));
 
     if (game.global.turn == 0) {
-      if (game.global.alien1Moved == 1) {
-        console.log('dubugging');
+      if (game.global.alienSet == 0) {
+        if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          game.global.charC1 = 1;
+          game.global.charCX1 = Math.floor(blulethI.x / 100);
+          game.global.charCY1 = Math.floor(blulethI.y / 100);
+        } else {
+          game.global.charC1 = 0;
+          game.global.alien1Moved = 0;
+          console.log('No enemies near alien 1');
+        }
+
+        if (Math.abs(Math.floor(alien2.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien2.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          game.global.charC2 = 1;
+          game.global.charCX2 = Math.floor(blulethI.x / 100);
+          game.global.charCY2 = Math.floor(blulethI.y / 100);
+        } else {
+          game.global.charC2 = 0;
+          game.global.alien2Moved = 0;
+          console.log('No enemies near alien 2');
+        }
+
+        if (Math.abs(Math.floor(alien3.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien3.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          game.global.charC3 = 1;
+          game.global.charCX3 = Math.floor(blulethI.x / 100);
+          game.global.charCY3 = Math.floor(blulethI.y / 100);
+        } else {
+          game.global.charC3 = 0;
+          game.global.alien3Moved = 0;
+          console.log('No enemies near alien 3');
+        }
+
+        if (Math.abs(Math.floor(alien4.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien4.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          game.global.charC4 = 1;
+          game.global.charCX4 = Math.floor(blulethI.x / 100);
+          game.global.charCY4 = Math.floor(blulethI.y / 100);
+        } else {
+          game.global.charC4 = 0;
+          game.global.alien4Moved = 0;
+          console.log('No enemies near alien 4');
+        }
+
+        game.global.alienSet = 1;
+      }
+
+      if (game.global.alien1Moved == 1 && game.global.charC1 !== 0) {
+        console.log('Alien 1 is Moving');
+
+        alienMove1.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien1.x / 100)) * 120;
+        alienMove2.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien1.y / 100)) * 120;
+
         alienMove1.x = alien1.x;
         alienMove1.y = alien1.y;
 
         alienMove2.x = alien1.x;
         alienMove2.y = alien1.y;
 
-        game.global.alien1Moved = 0;
+        game.global.alien1Moved = 2;
 
         if (Math.abs(Math.floor(alien1.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien1.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          console.log('Alien 1 sees an enemy');
+
           alienMove1.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien1.x / 100)) * 120;
           alienMove2.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien1.y / 100)) * 120;
 
           game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alienMovement1, this);
+        } else {
+          game.global.alien1Moved = 0;
+          console.log('There are no enemies near alien 1');
         }
-      } else {
-        game.global.turn = 1;
+      }
+
+
+      if (game.global.alien2Moved == 1 && game.global.charC2 !== 0) {
+        console.log('Alien 2 is Moving');
+
+        alien2Move1.x = alien2.x;
+        alien2Move1.y = alien2.y;
+
+        alien2Move2.x = alien2.x;
+        alien2Move2.y = alien2.y;
+
+        game.global.alien2Moved = 2;
+
+        if (Math.abs(Math.floor(alien2.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien2.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+          alien2Move1.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien2.x / 100)) * 120;
+          alien2Move2.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien2.y / 100)) * 120;
+
+          game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien2Movement1, this);
+        } else {
+          game.global.alien1Moved = 0;
+          console.log('There are no enemies near alien 2');
+        }
+      }
+
+      if (game.global.alien3Moved == 1 && game.global.charC3 !== 0) {
+        console.log('Alien 3 is Moving');
+
+        alien3Move1.x = alien3.x;
+        alien3Move1.y = alien3.y;
+
+        alien3Move2.x = alien3.x;
+        alien3Move2.y = alien3.y;
+
+        game.global.alien3Moved = 2;
+
+        if (Math.abs(Math.floor(alien3.x / 100) - game.global.charCX3) + Math.abs(Math.floor(alien3.y / 100) - game.global.charCY3) < 4) {
+          alien3Move1.body.velocity.x = (game.global.charCX3 - Math.floor(alien3.x / 100)) * 120;
+          alien3Move2.body.velocity.y = (game.global.charCY3 - Math.floor(alien3.y / 100)) * 120;
+
+          game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien3Movement1, this);
+        } else {
+          game.global.alien1Moved = 0;
+          console.log('There are no enemies near alien 3');
+        }
+
+      }
+      if (game.global.alien4Moved == 1 && game.global.charC4) {
+        console.log('Alien 4 is Moving');
+
+        alien4Move1.x = alien4.x;
+        alien4Move1.y = alien4.y;
+
+        alien4Move2.x = alien4.x;
+        alien4Move2.y = alien4.y;
+
+        game.global.alien4Moved = 2;
+
+        if (Math.abs(Math.floor(alien4.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien4.y / 100) - Math.floor(blulethI.y / 100)) < 4) {
+
+          alien4Move1.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien4.x / 100)) * 120;
+          alien4Move2.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien4.y / 100)) * 120;
+
+          game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien4Movement1, this);
+
+        } else {
+          game.global.alien4Moved = 0;
+          console.log('There are no enemies near alien 4');
+        }
       }
     }
+
 
     if (game.global.turn == 0) {
       game.global.ammo = 0;
@@ -392,7 +559,7 @@ var level1State = {
     }
 
     if (game.input.activePointer.leftButton.isDown && game.global.moving == 1 && game.global.turn == 1) {
-      if (Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien1.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien1.y / 100)) {
+      if (Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien1.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien1.y / 100) && Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien2.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien2.y / 100) && Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien3.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien3.y / 100) && Math.floor(this.input.mousePointer.x / 100) !== Math.floor(alien4.x / 100) || Math.floor((this.input.mousePointer.y + game.global.charY) / 100) !== Math.floor(alien4.y / 100)) {
         game.global.mouseX = Math.floor(this.input.mousePointer.x / 100);
         game.global.mouseY = Math.floor((this.input.mousePointer.y + game.global.charY) / 100);
 
@@ -416,7 +583,6 @@ var level1State = {
               //   it will use the other path, if both of them collide with a wall the player cannot move to where they are trying to move to
               //   but if they both are able to make it to their destination the player moves diagonally to their target
 
-              alien1.onInputUp.add(this.attackalien1);
               blulethMove1.x = blulethI.x;
               blulethMove1.y = blulethI.y;
               blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
@@ -430,37 +596,28 @@ var level1State = {
               console.log('no character');
             }
           } else if (game.global.bluY !== game.global.mouseY) {
-            game.global.moving = 2;
+            if (game.global.car = 'bluleth') {
+              game.global.moving = 2;
 
-            alien1.onInputUp.add(this.attackalien1);
-            blulethMove1.x = blulethI.x;
-            blulethMove1.y = blulethI.y;
-            blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
+              alien1.onInputUp.add(this.attackalien1);
+              blulethMove1.x = blulethI.x;
+              blulethMove1.y = blulethI.y;
+              blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
 
-            blulethMove2.x = blulethI.x;
-            blulethMove2.y = blulethI.y;
-            blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
+              blulethMove2.x = blulethI.x;
+              blulethMove2.y = blulethI.y;
+              blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
 
-            game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
-          } else {
-            console.log('no character');
+              game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
+            } else {
+              console.log('no character');
+            }
           }
-        } else if (game.global.bluY !== game.global.mouseY) {
-          game.global.moving = 2;
-
-          alien1.onInputUp.add(this.attackalien1);
-          blulethMove1.x = blulethI.x;
-          blulethMove1.y = blulethI.y;
-          blulethMove1.body.velocity.x = (game.global.mouseX - game.global.bluX) * 440;
-
-          blulethMove2.x = blulethI.x;
-          blulethMove2.y = blulethI.y;
-          blulethMove2.body.velocity.y = (game.global.mouseY - game.global.bluY) * 440;
-
-          game.time.events.add(Phaser.Timer.SECOND * 0.25, this.cornerMovementA, this);
         }
       }
     }
+
+
 
     if (game.input.mousePointer.y > 650 && cameraSprite.y < 800) {
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 650);
@@ -527,14 +684,12 @@ var level1State = {
 
       console.log('Test2');
 
-      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.cornerMovementC, this);
     } else if (Math.floor(blulethMove2.x / 100) == game.global.mouseX && Math.floor(blulethMove2.y / 100) == game.global.mouseY) {
       blulethI.body.velocity.y = (game.global.mouseY - game.global.bluY) * 60;
 
       console.log('Test3');
 
-      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.cornerMovementD, this);
     } else {
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.characterStop, this);
@@ -570,6 +725,15 @@ var level1State = {
     rpgRocket.alpha = 0;
     rpgRocket.x = -100;
     rpgRocket.y = -100;
+
+    console.log('Your attack failed');
+
+    game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
   },
 
   hitAlien1: function(rpgRocket, alien1Body) {
@@ -586,12 +750,54 @@ var level1State = {
 
     console.log("their turn!!")
     game.global.ammo = 0;
+  },
 
-    if (game.global.alien1HP == 0) {
-      alien1.kill();
-      game.global.turn = 1;
-      game.global.ammo = 1;
-    }
+  hitAlien2: function(rpgRocket, alien2Body) {
+    //   This is what happens when the alien is hit with the rocket
+    game.global.alien2HP = game.global.alien2HP - 1;
+    rpgRocket.alpha = 0;
+    rpgRocket.x = -100;
+    rpgRocket.y = -100;
+    console.log("alien HP = " + game.global.alien1HP);
+
+    game.global.turn = 0;
+
+    game.global.alien1Moved = 1;
+
+    console.log("their turn!!")
+    game.global.ammo = 0;
+  },
+
+  hitAlien3: function(rpgRocket, alien3Body) {
+    //   This is what happens when the alien is hit with the rocket
+    game.global.alien3HP = game.global.alien3HP - 1;
+    rpgRocket.alpha = 0;
+    rpgRocket.x = -100;
+    rpgRocket.y = -100;
+    console.log("alien HP = " + game.global.alien1HP);
+
+    game.global.turn = 0;
+
+    game.global.alien1Moved = 1;
+
+    console.log("their turn!!")
+    game.global.ammo = 0;
+  },
+
+  hitAlien4: function(rpgRocket, alien4Body) {
+    //   This is what happens when the alien is hit with the rocket
+    game.global.alien4HP = game.global.alien4HP - 1;
+    rpgRocket.alpha = 0;
+    rpgRocket.x = -100;
+    rpgRocket.y = -100;
+    console.log("alien HP = " + game.global.alien1HP);
+
+    game.global.turn = 0;
+
+    game.global.alien1Moved = 1;
+
+    console.log("their turn!!")
+    game.global.ammo = 0;
   },
 
   alienMovement1: function() {
@@ -615,6 +821,8 @@ var level1State = {
     } else if (Math.floor(alienMove2.x / 100) == Math.floor(blulethI.x / 100) && Math.floor(alienMove2.y / 100) == Math.floor(blulethI.y / 100)) {
       alien1Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien1.y / 100)) * 60;
       game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alienMovement4, this);
+    } else {
+      game.global.alien1Moved = 0;
     }
   },
 
@@ -622,32 +830,162 @@ var level1State = {
     alien1Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien1.y / 100)) * 60;
     alien1Body.body.velocity.x = 0;
 
-    game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alienMovement2, this);
+    alienMove1.body.velocity.y = 0;
+    alienMove2.body.velocity.x = 0;
   },
 
   alienMovemnt4: function() {
     alien1Body.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien1.x / 100)) * 60;
     alien1Body.body.velocity.y = 0;
 
-    game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alienMovement2, this);
+    alienMove1.body.velocity.y = 0;
+    alienMove2.body.velocity.x = 0;
+  },
+
+  alien2Movement1: function() {
+    alien2Move1.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien2.y / 100)) * 120;
+    alien2Move1.body.velocity.x = 0;
+
+    alienMove2.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien2.x / 100)) * 120;
+    alienMove2.body.velocity.y = 0;
+
+    game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien2Movement2, this);
+  },
+
+  alien2Movement2: function() {
+    alien2Move1.body.velocity.y = 0;
+
+    alien2Move2.body.velocity.x = 0;
+
+    if (Math.floor(alien2Move1.x / 100) == Math.floor(blulethI.x / 100) && Math.floor(alien2Move1.y / 100) == Math.floor(blulethI.y / 100)) {
+      alien2Body.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien2.x / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien2Movement3, this);
+    } else if (Math.floor(alien2Move2.x / 100) == Math.floor(blulethI.x / 100) && Math.floor(alien2Move2.y / 100) == Math.floor(blulethI.y / 100)) {
+      alien2Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien2.y / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien2Movement4, this);
+    } else {
+      game.global.alien2Moved = 0;
+    }
+  },
+
+  alien2Movement3: function() {
+    alien2Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien2.y / 100)) * 60;
+    alien2Body.body.velocity.x = 0;
+
+    alien2Move1.body.velocity.y = 0;
+    alien2Move2.body.velocity.x = 0;
+  },
+
+  alien2Movement4: function() {
+    alien2Body.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien2.x / 100)) * 60;
+    alien2Body.body.velocity.y = 0;
+
+    alien2Move1.body.velocity.y = 0;
+    alien2Move2.body.velocity.x = 0;
+  },
+
+  alien3Movement1: function() {
+    alien3Move1.body.velocity.y = (game.global.charCY3 - Math.floor(alien3.y / 100)) * 120;
+    alien3Move1.body.velocity.x = 0;
+
+    alien3Move2.body.velocity.x = (game.global.charCX3 - Math.floor(alien3.x / 100)) * 120;
+    alien3Move2.body.velocity.y = 0;
+
+    game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien3Movement2, this);
+  },
+
+  alien3Movement2: function() {
+    alien3Move1.body.velocity.y = 0;
+
+    alien3Move2.body.velocity.x = 0;
+
+    if (Math.floor(alien3Move1.x / 100) == game.global.charCX3 && Math.floor(alien3Move1.y / 100) == game.global.charCY3) {
+      alien3Body.body.velocity.x = (game.global.charCX3 - Math.floor(alien3.x / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien3Movement3, this);
+    } else if (Math.floor(alien3Move2.x / 100) == game.global.charCX3 && Math.floor(alien3Move2.y / 100) == game.global.charCY3) {
+      alien3Body.body.velocity.y = (game.global.charCY3 - Math.floor(alien3.y / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien3Movement4, this);
+    } else {
+      game.global.alien3Moved = 0;
+    }
+  },
+
+  alien3Movement3: function() {
+    alien3Body.body.velocity.y = (game.global.charCY3 - Math.floor(alien3.y / 100)) * 60;
+    alien3Body.body.velocity.x = 0;
+
+    alien3Move1.body.velocity.y = 0;
+    alien3Move2.body.velocity.x = 0;
+  },
+
+  alien3Movement4: function() {
+    alien3Body.body.velocity.x = (game.global.charCX3 - Math.floor(alien3.x / 100)) * 60;
+    alien3Body.body.velocity.y = 0;
+
+    alien3Move1.body.velocity.y = 0;
+    alien3Move2.body.velocity.x = 0;
+  },
+
+  alien4Movement1: function() {
+    alien4Move1.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien4.y / 100)) * 120;
+    alien4Move1.body.velocity.x = 0;
+
+    alien4Move2.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien4.x / 100)) * 120;
+    alien4Move2.body.velocity.y = 0;
+
+    game.time.events.add(Phaser.Timer.SECOND * (5 / 6), this.alien4Movement2, this);
+  },
+
+  alien4Movement2: function() {
+    alien4Move1.body.velocity.y = 0;
+    alien4Move2.body.velocity.x = 0;
+
+    if (Math.floor(alien4Move1.x / 100) == Math.floor(blulethI.x / 100) && Math.floor(alien4Move1.y / 100) == Math.floor(blulethI.y / 100)) {
+      alien4Body.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien4.x / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien4Movement3, this);
+    } else if (Math.floor(alien4Move2.x / 100) == Math.floor(blulethI.x / 100) && Math.floor(alien4Move2.y / 100) == Math.floor(blulethI.y / 100)) {
+      alien4Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien4.y / 100)) * 60;
+      game.time.events.add(Phaser.Timer.SECOND * (5 / 3), this.alien4Movement4, this);
+    } else {
+      game.global.alien4Moved = 0;
+    }
+  },
+
+  alien4Movement3: function() {
+    alien4Body.body.velocity.y = (Math.floor(blulethI.y / 100) - Math.floor(alien4.y / 100)) * 60;
+    alien4Body.body.velocity.x = 0;
+
+    alien4Move1.body.velocity.y = 0;
+    alien4Move2.body.velocity.x = 0;
+  },
+
+  alien4Movement4: function() {
+    alien4Body.body.velocity.x = (Math.floor(blulethI.x / 100) - Math.floor(alien4.x / 100)) * 60;
+    alien4Body.body.velocity.y = 0;
+
+    alien4Move1.body.velocity.y = 0;
+    alien4Move2.body.velocity.x = 0;
   },
 
   characterStop: function() {
     //   This stops the characters velocity after they move
     blulethI.body.velocity.x = 0;
     blulethI.body.velocity.y = 0;
-    game.global.moving = 1;
+
     blulethI.x = Math.floor(blulethI.x / 100) * 100 + 50;
     blulethI.y = Math.floor(blulethI.y / 100) * 100 + 50;
-    if (game.global.storyStatus == 2) {
-      game.global.storyStatus = 3;
-    }
+
     game.global.turn = 0;
     game.global.moving = 0;
 
     console.log('turn ' + game.global.turn);
 
     game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
   },
 
   alien1HitPlayer: function() {
@@ -666,11 +1004,76 @@ var level1State = {
     alienMove1.x = -1000;
     alienMove2.x = -1000;
 
-    game.global.turn = 1;
     game.global.alien1Moved = 0;
 
     alien1Body.x = Math.floor(alien1Body.x / 100) * 100 + 50;
     alien1Body.y = Math.floor(alien1Body.y / 100) * 100 + 50;
+  },
+
+  alien2HitPlayer: function() {
+    blulethI.body.velocity.x = 0;
+
+    game.global.playerHP = game.global.playerHP - 1;
+    console.log("Ouch, you've been hit!");
+    console.log("PlayerHP = " + game.global.playerHP);
+    game.global.ammo = game.global.ammo + 1;
+    console.log("Ammo: " + game.global.ammo);
+    console.log("your turn!");
+
+    alien2Body.body.velocity.x = 0;
+    alien2Body.body.velocity.y = 0;
+
+    alien2Move1.x = -1000;
+    alien2Move2.x = -1000;
+
+    game.global.alien2Moved = 0;
+
+    alien2Body.x = Math.floor(alien2Body.x / 100) * 100 + 50;
+    alien2Body.y = Math.floor(alien2Body.y / 100) * 100 + 50;
+  },
+
+  alien3HitPlayer: function() {
+    blulethI.body.velocity.x = 0;
+
+    game.global.playerHP = game.global.playerHP - 1;
+    console.log("Ouch, you've been hit!");
+    console.log("PlayerHP = " + game.global.playerHP);
+    game.global.ammo = game.global.ammo + 1;
+    console.log("Ammo: " + game.global.ammo);
+    console.log("your turn!");
+
+    alien3Body.body.velocity.x = 0;
+    alien3Body.body.velocity.y = 0;
+
+    alien3Move1.x = -1000;
+    alien3Move2.x = -1000;
+
+    game.global.alien3Moved = 0;
+
+    alien3Body.x = Math.floor(alien3Body.x / 100) * 100 + 50;
+    alien3Body.y = Math.floor(alien3Body.y / 100) * 100 + 50;
+  },
+
+  alien4HitPlayer: function() {
+    blulethI.body.velocity.x = 0;
+
+    game.global.playerHP = game.global.playerHP - 1;
+    console.log("Ouch, you've been hit!");
+    console.log("PlayerHP = " + game.global.playerHP);
+    game.global.ammo = game.global.ammo + 1;
+    console.log("Ammo: " + game.global.ammo);
+    console.log("your turn!");
+
+    alien4Body.body.velocity.x = 0;
+    alien4Body.body.velocity.y = 0;
+
+    alien4Move1.x = -1000;
+    alien4Move2.x = -1000;
+
+    game.global.alien4Moved = 0;
+
+    alien4Body.x = Math.floor(alien4Body.x / 100) * 100 + 50;
+    alien4Body.y = Math.floor(alien4Body.y / 100) * 100 + 50;
   },
 
 
@@ -740,5 +1143,145 @@ var level1State = {
         console.log("Not enough ammo boomer");
       }
     }
+    game.global.turn = 0;
+    game.global.moving = 0;
+
+    console.log('turn ' + game.global.turn);
+
+    game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
+  },
+
+  attackalien2: function() {
+    //   This points the rpg towards the alien
+    console.log(game.math.angleBetween(rpg.x, rpg.y, alien2.x, alien2.y) > -2.5);
+    if (game.math.angleBetween(rpg.x, rpg.y, alien2.x, alien2.y) > -2.5) {
+      rpg.scale.y = -1;
+      console.log("flipppp");
+    } else {
+      rpg.scale.y = 1;
+      console.log("flipppp2");
+    }
+    blulethI.body.velocity.x = 0;
+    blulethI.body.velocity.y = 0;
+    rpgRocket.alpha = 1;
+
+    console.log(Math.floor(alien2.x / 100) - Math.floor(bluleth.x / 100));
+    rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien2.x, alien2.y);
+    if (Math.abs(Math.floor(alien2.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien2.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
+      console.log('Bluleth Is Attacking Alien 2');
+      if (game.global.ammo == 1) {
+        rpgRocket.x = rpg.x;
+        rpgRocket.y = rpg.y;
+        rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien2.x, alien2.y);
+        rpgRocket.alpha = 1;
+        rpg.alpha = 1;
+        rpgRocket.body.velocity.x = (Math.floor(alien2.x / 100) - Math.floor(rpg.x / 100)) * 60;
+        rpgRocket.body.velocity.y = (Math.floor(alien2.y / 100) - Math.floor(rpg.y / 100)) * 60;
+      } else {
+        console.log("Not enough ammo boomer");
+      }
+    }
+    game.global.turn = 0;
+    game.global.moving = 0;
+
+    console.log('turn ' + game.global.turn);
+
+    game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
+  },
+
+  attackalien3: function() {
+    //   This points the rpg towards the alien
+    console.log(game.math.angleBetween(rpg.x, rpg.y, alien3.x, alien3.y) > -2.5);
+    if (game.math.angleBetween(rpg.x, rpg.y, alien3.x, alien3.y) > -2.5) {
+      rpg.scale.y = -1;
+      console.log("flipppp");
+    } else {
+      rpg.scale.y = 1;
+      console.log("flipppp2");
+    }
+    blulethI.body.velocity.x = 0;
+    blulethI.body.velocity.y = 0;
+    rpgRocket.alpha = 1;
+
+    console.log(Math.floor(alien3.x / 100) - Math.floor(bluleth.x / 100));
+    rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien3.x, alien3.y);
+    if (Math.abs(Math.floor(alien3.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien3.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
+      console.log('Bluleth Is Attacking Alien 1');
+      if (game.global.ammo == 1) {
+        rpgRocket.x = rpg.x;
+        rpgRocket.y = rpg.y;
+        rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien3.x, alien3.y);
+        rpgRocket.alpha = 1;
+        rpg.alpha = 1;
+        rpgRocket.body.velocity.x = (Math.floor(alien3.x / 100) - Math.floor(rpg.x / 100)) * 60;
+        rpgRocket.body.velocity.y = (Math.floor(alien3.y / 100) - Math.floor(rpg.y / 100)) * 60;
+      } else {
+        console.log("Not enough ammo boomer");
+      }
+    }
+    game.global.turn = 0;
+    game.global.moving = 0;
+
+    console.log('turn ' + game.global.turn);
+
+    game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
+  },
+
+  attackalien4: function() {
+    //   This points the rpg towards the alien
+    console.log(game.math.angleBetween(rpg.x, rpg.y, alien4.x, alien4.y) > -2.5);
+    if (game.math.angleBetween(rpg.x, rpg.y, alien4.x, alien4.y) > -2.5) {
+      rpg.scale.y = -1;
+      console.log("flipppp");
+    } else {
+      rpg.scale.y = 1;
+      console.log("flipppp2");
+    }
+    blulethI.body.velocity.x = 0;
+    blulethI.body.velocity.y = 0;
+    rpgRocket.alpha = 1;
+
+    console.log(Math.floor(alien4.x / 100) - Math.floor(bluleth.x / 100));
+    rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien4.x, alien4.y);
+    if (Math.abs(Math.floor(alien4.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien4.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
+      console.log('Bluleth Is Attacking Alien 1');
+      if (game.global.ammo == 1) {
+        rpgRocket.x = rpg.x;
+        rpgRocket.y = rpg.y;
+        rpgRocket.rotation = game.math.angleBetween(rpgRocket.x, rpgRocket.y, alien4.x, alien4.y);
+        rpgRocket.alpha = 1;
+        rpg.alpha = 1;
+        rpgRocket.body.velocity.x = (Math.floor(alien4.x / 100) - Math.floor(rpg.x / 100)) * 60;
+        rpgRocket.body.velocity.y = (Math.floor(alien4.y / 100) - Math.floor(rpg.y / 100)) * 60;
+      } else {
+        console.log("Not enough ammo boomer");
+      }
+    }
+    game.global.turn = 0;
+    game.global.moving = 0;
+
+    console.log('turn ' + game.global.turn);
+
+    game.global.alien1Moved = 1;
+    game.global.alien2Moved = 1;
+    game.global.alien3Moved = 1;
+    game.global.alien4Moved = 1;
+
+    game.global.alienSet = 0;
   }
 };

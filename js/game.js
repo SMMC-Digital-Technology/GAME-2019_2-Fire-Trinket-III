@@ -19,26 +19,67 @@ game.global = {
   alienPathfinding: 0,
   alien1X: 0,
   alien1Y: 0,
+
   alien1Moved: 1,
+  alien2Moved: 1,
+  alien3Moved: 1,
+  alien4Moved: 1,
+
   dummyVar: 0,
+
+  alienSet: 0,
+
   alienXRelative: 0,
   alienYRelative: 0,
+  alien2XRelative: 0,
+  alien2YRelative: 0,
+  alien3XRelative: 0,
+  alien3YRelative: 0,
+  alien4XRelative: 0,
+  alien4YRelative: 0,
+
   alien1HP: 3,
+  alien2HP: 3,
+  alien3HP: 3,
+  alien4HP: 3,
+
+  charC1: 0,
+  charC2: 0,
+  charC3: 0,
+  charC4: 0,
+
+  charCX1: 0,
+  charCX2: 0,
+  charCX3: 0,
+  charCX4: 0,
+
+  charCY1: 0,
+  charCY2: 0,
+  charCY3: 0,
+  charCY4: 0,
+
   availMove: 1,
   charNumber: 1,
+
   right_side: 1,
+
   playerHP: 7,
+
   ammo: 1,
   storyStatus: 1,
   turn: 1,
   moving: 0,
+
   wallA: 0,
   wallB: 0,
+
   charX: 0,
   charY: 400,
   char: 'bluleth',
+
   mouseX: 0,
   mouseY: 0,
+
   bluX: 0,
   bluY: 0,
   //   this array creates a tilemap where \n creates a new line, with each number representing a different tile on the spritesheet
