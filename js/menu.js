@@ -17,11 +17,16 @@ var menuState = {
     button1.onInputUp.add(this.startLevel1);
 
 
-    nextButton = game.add.button(700, 700, "rpgRocket");
+    nextButton = game.add.button(900, 550, "");
     nextButton.anchor.setTo(0.5, 0.5);
-    nextButton.scale.x = 5;
-    nextButton.scale.y = 5;
+    nextButton.scale.x = 2;
+    nextButton.scale.y = 2;
     nextButton.smoothed = false;
+    nextButton.onInputUp.add(this.nextHeading);
+
+    nextText = game.add.text(880, 550, "Next", {
+      fill: 'white'
+    });
 
 
     textBox = game.add.sprite(500, 550, "Text_Box");
@@ -67,9 +72,34 @@ var menuState = {
 
   },
 
-  update: function() {
-    //if ()
-
+  nextHeading: function() {
+    if (textBody1.alpha == 1) {
+      textBody1.alpha = 0;
+      textBody2.alpha = 1;
+      textHeading2.alpha = 1;
+      textHeading1.alpha = 0;
+    } else if (textBody2.alpha == 1){
+      textHeading2.alpha = 0;
+      textHeading1.alpha = 1;
+      textBody2.alpha = 0;
+      textBody3.alpha = 1;
+    } else if (textBody3.alpha == 1){
+      textHeading2.alpha = 1;
+      textHeading1.alpha = 0;
+      textBody3.alpha = 0;
+      textBody4.alpha = 1;
+    } else if (textBody4.alpha == 1){
+      textBody4.alpha = 0;
+      textBox.kill();
+      textHeading1.kill();
+      textHeading2.kill();
+      textBody1.kill();
+      textBody2.kill();
+      textBody3.kill();
+      textBody4.kill();
+      nextButton.kill();
+      nextText.kill();
+    }
   },
 
   //   these function when you are in the right part of the story, allow you to travel to different levels

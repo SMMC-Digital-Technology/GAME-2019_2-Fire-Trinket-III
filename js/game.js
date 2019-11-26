@@ -20,14 +20,14 @@ game.global = {
   alien1X: 0,
   alien1Y: 0,
 
-headingText: "",
-
-bodyText1: "",
-bodyText2: "",
-bodyText3: "",
-bodyText4: "",
-bodyTextStart: "",
-bodyTextTerminal: "",
+headingText1: "a",
+headingText2: "b",
+bodyText1: "1",
+bodyText2: "2",
+bodyText3: "3",
+bodyText4: "4",
+bodyTextStart: "5",
+bodyTextTerminal: "6",
 
 
   alien1Moved: 1,

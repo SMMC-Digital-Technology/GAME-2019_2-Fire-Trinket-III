@@ -239,6 +239,16 @@ var level1State = {
     tutorialFight.alpha = 0;
 
 //dialog
+    nextButton = game.add.button(900, 550, "");
+    nextButton.anchor.setTo(0.5, 0.5);
+    nextButton.scale.x = 2;
+    nextButton.scale.y = 2;
+    nextButton.smoothed = false;
+    nextButton.onInputUp.add(this.nextHeading);
+
+    nextText = game.add.text(880, 550, "Next", {
+      fill: 'white'
+    });
 
     textBodyStart = game.add.text(510, 610, game.global.bodyTextStart, {
       fill: 'white'
@@ -254,7 +264,7 @@ var level1State = {
     textBox = game.add.sprite(500, 550, "Text_Box");
     textBox.scale.x = 2.5;
     textBox.scale.y = 2.5;
-    textBox.alpha = 0;
+    textBox.alpha = 1;
 
 
     textBodyTerminal = game.add.text(510, 610, game.global.bodyTextTerminal, {
@@ -268,7 +278,10 @@ var level1State = {
 
   update: function() {
 
+
+
     //makes tutorial of some kind
+
 
 
 
@@ -1152,6 +1165,16 @@ var level1State = {
 
     alien3Body.x = Math.floor(alien3Body.x / 100) * 100 + 50;
     alien3Body.y = Math.floor(alien3Body.y / 100) * 100 + 50;
+  },
+
+  nextHeading: function() {
+    if (textBodyStart.alpha == 1) {
+      textBodyStart.kill();
+      nextText.alpha = 0;
+      nextButton.x = -1000;
+      textBox.alpha = 0;
+      textHeading1.alpha = 0;
+    }
   },
 
   alien4HitPlayer: function() {
