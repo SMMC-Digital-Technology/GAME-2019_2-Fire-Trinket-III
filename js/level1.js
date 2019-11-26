@@ -57,8 +57,8 @@ var level1State = {
     blulethI = game.add.sprite(350, 1050, 'Bluleth');
     game.physics.arcade.enable(blulethI);
     blulethI.anchor.setTo(0.5, 0.5);
-    blulethI.scale.x = 1.5;
-    blulethI.scale.x = 1.5;
+    blulethI.scale.x = 1;
+    blulethI.scale.y = 1;
     blulethI.smoothed = false;
     blulethI.body.immovable = true;
 
@@ -79,8 +79,8 @@ var level1State = {
     bluleth = game.add.button(350, 650, 'Bluleth');
     bluleth.anchor.setTo(0.5, 0.5);
     bluleth.alpha = 0;
-    bluleth.scale.x = 1.5;
-    bluleth.scale.y = 1.5;
+    bluleth.scale.x = 1;
+    bluleth.scale.y = 1;
     bluleth.smoothed = false;
     bluleth.onInputUp.add(this.blulethMove);
 
@@ -100,16 +100,16 @@ var level1State = {
     //creates allies to save and become part of your team
 
     //   creates an enemy with physics
-    alien1 = game.add.button(50, 725, "Alien");
-    alien1.scale.x = 1.5;
-    alien1.scale.y = 1.5;
+    alien1 = game.add.button(50, 750, "Alien");
+    alien1.scale.x = 1;
+    alien1.scale.y = 1;
     alien1.anchor.setTo(0.5, 0.5);
     alien1.smoothed = false;
     game.physics.arcade.enable(alien1);
 
-    alien1Body = game.add.sprite(50, 725, "Alien");
-    alien1Body.scale.x = 1.5;
-    alien1Body.scale.y = 1.5;
+    alien1Body = game.add.sprite(50, 750, "Alien");
+    alien1Body.scale.x = 1;
+    alien1Body.scale.y = 1;
     alien1Body.anchor.setTo(0.5, 0.5);
     alien1Body.smoothed = false;
     game.physics.arcade.enable(alien1Body);
@@ -121,92 +121,92 @@ var level1State = {
     alienMove2 = game.add.sprite(-1000, -1000, 'moveTool');
     game.physics.arcade.enable(alienMove2);
 
-    alien2 = game.add.button(450, 125, "Alien");
-    alien2.scale.x = 1.5;
-    alien2.scale.y = 1.5;
+    alien2 = game.add.button(450, 150, "Alien");
+    alien2.scale.x = 1;
+    alien2.scale.y = 1;
     alien2.anchor.setTo(0.5, 0.5);
     alien2.smoothed = false;
     game.physics.arcade.enable(alien2);
 
-    alien2Body = game.add.sprite(450, 125, "Alien");
-    alien2Body.scale.x = 1.5;
-    alien2Body.scale.y = 1.5;
+    alien2Body = game.add.sprite(450, 150, "Alien");
+    alien2Body.scale.x = 1;
+    alien2Body.scale.y = 1;
     alien2Body.anchor.setTo(0.5, 0.5);
     alien2Body.smoothed = false;
     game.physics.arcade.enable(alien2Body);
     alien2Body.body.immovable = true;
 
-    alien3 = game.add.button(250, 425, "Alien");
-    alien3.scale.x = 1.5;
-    alien3.scale.y = 1.5;
+    alien3 = game.add.button(250, 450, "Alien");
+    alien3.scale.x = 1;
+    alien3.scale.y = 1;
     alien3.anchor.setTo(0.5, 0.5);
     alien3.smoothed = false;
     game.physics.arcade.enable(alien3);
 
-    alien3Body = game.add.sprite(250, 425, "Alien");
-    alien3Body.scale.x = 1.5;
-    alien3Body.scale.y = 1.5;
+    alien3Body = game.add.sprite(250, 450, "Alien");
+    alien3Body.scale.x = 1;
+    alien3Body.scale.y = 1;
     alien3Body.anchor.setTo(0.5, 0.5);
     alien3Body.smoothed = false;
     game.physics.arcade.enable(alien3Body);
     alien3Body.body.immovable = true;
 
-    alien4 = game.add.button(750, 325, "Alien");
-    alien4.scale.x = 1.5;
-    alien4.scale.y = 1.5;
+    alien4 = game.add.button(750, 350, "Alien");
+    alien4.scale.x = 1;
+    alien4.scale.y = 1;
     alien4.anchor.setTo(0.5, 0.5);
     alien4.smoothed = false;
     game.physics.arcade.enable(alien4);
 
-    alien4Body = game.add.sprite(750, 325, "Alien");
-    alien4Body.scale.x = 1.5;
-    alien4Body.scale.y = 1.5;
+    alien4Body = game.add.sprite(750, 350, "Alien");
+    alien4Body.scale.x = 1;
+    alien4Body.scale.y = 1;
     alien4Body.anchor.setTo(0.5, 0.5);
     alien4Body.smoothed = false;
     game.physics.arcade.enable(alien4Body);
     alien4Body.body.immovable = true;
 
 
-    alien2 = game.add.button(450, 125, "Alien");
-    alien2.scale.x = 1.5;
-    alien2.scale.y = 1.5;
+    alien2 = game.add.button(450, 150, "Alien");
+    alien2.scale.x = 1;
+    alien2.scale.y = 1;
     alien2.anchor.setTo(0.5, 0.5);
     alien2.smoothed = false;
     game.physics.arcade.enable(alien2);
 
-    alien2Body = game.add.sprite(450, 125, "Alien");
-    alien2Body.scale.x = 1.5;
-    alien2Body.scale.y = 1.5;
+    alien2Body = game.add.sprite(450, 150, "Alien");
+    alien2Body.scale.x = 1;
+    alien2Body.scale.y = 1;
     alien2Body.anchor.setTo(0.5, 0.5);
     alien2Body.smoothed = false;
     game.physics.arcade.enable(alien2Body);
     alien2Body.body.immovable = true;
 
-    alien3 = game.add.button(250, 425, "Alien");
-    alien3.scale.x = 1.5;
-    alien3.scale.y = 1.5;
+    alien3 = game.add.button(250, 450, "Alien");
+    alien3.scale.x = 1;
+    alien3.scale.y = 1;
     alien3.anchor.setTo(0.5, 0.5);
     alien3.smoothed = false;
     game.physics.arcade.enable(alien3);
 
-    alien3Body = game.add.sprite(250, 425, "Alien");
-    alien3Body.scale.x = 1.5;
-    alien3Body.scale.y = 1.5;
+    alien3Body = game.add.sprite(250, 450, "Alien");
+    alien3Body.scale.x = 1;
+    alien3Body.scale.y = 1;
     alien3Body.anchor.setTo(0.5, 0.5);
     alien3Body.smoothed = false;
     game.physics.arcade.enable(alien3Body);
     alien3Body.body.immovable = true;
 
-    alien4 = game.add.button(750, 325, "Alien");
-    alien4.scale.x = 1.5;
-    alien4.scale.y = 1.5;
+    alien4 = game.add.button(750, 350, "Alien");
+    alien4.scale.x = 1;
+    alien4.scale.y = 1;
     alien4.anchor.setTo(0.5, 0.5);
     alien4.smoothed = false;
     game.physics.arcade.enable(alien4);
 
-    alien4Body = game.add.sprite(750, 325, "Alien");
-    alien4Body.scale.x = 1.5;
-    alien4Body.scale.y = 1.5;
+    alien4Body = game.add.sprite(750, 350, "Alien");
+    alien4Body.scale.x = 1;
+    alien4Body.scale.y = 1;
     alien4Body.anchor.setTo(0.5, 0.5);
     alien4Body.smoothed = false;
     game.physics.arcade.enable(alien4Body);
@@ -370,13 +370,13 @@ var level1State = {
     if (game.global.right_side == 1) {
       rpg.x = blulethI.x + 40;
       rpg.y = blulethI.y;
-      bluleth.scale.x = 1.5;
-      blulethI.scale.x = 1.5;
+      bluleth.scale.x = 1;
+      blulethI.scale.x = 1;
     } else {
       rpg.x = blulethI.x - 40;
       rpg.y = blulethI.y;
-      bluleth.scale.x = -1.5;
-      blulethI.scale.x = -1.5;
+      bluleth.scale.x = -1;
+      blulethI.scale.x = -1;
     }
 
     bluleth.x = blulethI.x;
