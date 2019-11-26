@@ -29,16 +29,17 @@ var level1State = {
 
 
     //   creates the first set of doors (blue) and it's terminal
-    wallA1 = game.add.sprite(198, 0, 'wall');
-    wallA2 = game.add.sprite(598, 100, 'wall');
+    Blue_Door = game.add.sprite(198, 0, 'wall');
+    Red_Door = game.add.sprite(598, 100, 'wall');
     terminalA = game.add.sprite(0, 300, 'wall');
 
-    //   creates the physics for the doors and for the terminal and stops them from moving
-    game.physics.arcade.enable(wallA1);
-    wallA1.body.immovable = true;
-    game.physics.arcade.enable(wallA2);
-    wallA2.body.immovable = true;
 
+    //   creates the physics for the doors and for the terminal and stops them from moving
+    game.physics.arcade.enable(Blue_Door);
+    Blue_Door.body.immovable = true;
+    game.physics.arcade.enable(Red_Door);
+    Red_Door.body.immovable = true;
+    Blue_Door.animations.add("openBlue", [0, 1, 2, 3], 10, true);
     game.physics.arcade.enable(terminalA);
     terminalA.body.immovable = true;
 
@@ -48,7 +49,7 @@ var level1State = {
 
     game.physics.arcade.enable(wallB);
     wallB.body.immovable = true;
-
+    Red_Door.animations.add("openRed", [0, 1, 2, 3], 10, true);
     game.physics.arcade.enable(terminalB);
     terminalB.body.immovable = true;
 
@@ -57,8 +58,8 @@ var level1State = {
     blulethI = game.add.sprite(350, 1050, 'Bluleth');
     game.physics.arcade.enable(blulethI);
     blulethI.anchor.setTo(0.5, 0.5);
-    blulethI.scale.x = 1;
-    blulethI.scale.x = 1;
+    blulethI.scale.x = 0.9;
+    blulethI.scale.x = 0.5;
     blulethI.smoothed = false;
     blulethI.body.immovable = true;
 
@@ -84,7 +85,7 @@ var level1State = {
     bluleth.smoothed = false;
     bluleth.onInputUp.add(this.blulethMove);
 
-    //   creates 3 invisible sprites which help with movement around corners
+    //   creates 2 invisible sprites which help with movement around corners
     blulethMove1 = game.add.sprite(350, 1050, 'moveTool');
     game.physics.arcade.enable(blulethMove1);
     blulethMove1.anchor.setTo(0.5, 0.5);
@@ -97,7 +98,6 @@ var level1State = {
     blulethMove2.scale.x = 2;
     blulethMove2.scale.y = 2;
 
-    //creates allies to save and become part of your team
 
     //   creates an enemy with physics
     alien1 = game.add.button(50, 725, "Alien");
@@ -192,7 +192,7 @@ var level1State = {
     rpg = game.add.sprite(0, 0, 'RPGAsset');
     rpg.anchor.setTo(0.5, 0.5);
     rpg.alpha = 1;
-    rpg.scale.x = 0.8;
+    rpg.scale.x = -0.8;
     rpg.scale.y = 0.8;
     rpg.x = blulethI.x + 40;
     rpg.y = blulethI.y;
@@ -229,11 +229,11 @@ var level1State = {
     tutorialScroll = game.add.text(150, 500, "Move Cursor up or down to scroll", {
       fill: 'white'
     });
-    tutorialMove = game.add.text(0, 500, "Click on your charactor and then a tile to move there.\nit must be within 3 tiles of your origin, including walking distance around cornors.", {
+    tutorialMove = game.add.text(50, 500, "Click on your charactor and then a tile to move there.\nit must be within 3 tiles of your origin, including walking \ndistance around corners.", {
       fill: 'white'
     });
     tutorialMove.alpha = 0;
-    tutorialFight = game.add.text(0, 500, "when walking into a radius of ememies they will attack you,\ncan can then attack them by clicking on your character and then the enemie.", {
+    tutorialFight = game.add.text(50, 500, "When walking into a radius of ememies they will attack \nyou,can can then attack them by clicking on your \ncharacter and then the enemy.", {
       fill: 'white'
     });
     tutorialFight.alpha = 0;
@@ -322,9 +322,7 @@ var level1State = {
     game.physics.arcade.collide(rpgRocket, alien4Body, this.hitAlien4, null, this);
     game.physics.arcade.collide(blulethI, alien4Body, this.alien4HitPlayer, null, this);
 
-    game.physics.arcade.collide(blulethI, endTile, this.WinIThink, null, this);
-    //game.physics.arcade.collide(blulethI, endTile, this.WinHalf, null, this);
-    //game.physics.arcade.collide(blulethI, endTile, this.WinFull, null, this);
+    game.physics.arcade.collide(blulethI, endTile, this.WinFunction, null, this);
 
 
     game.physics.arcade.collide(blulethMove1, layer);
@@ -342,6 +340,7 @@ var level1State = {
     game.physics.arcade.collide(blulethMove1, alien4Body);
     game.physics.arcade.collide(blulethMove2, alien4Body);
 
+
     //   makes sure the camera can scroll with the camera sprite
     game.camera.follow(cameraSprite);
 
@@ -352,7 +351,7 @@ var level1State = {
 
     //   makes sure the rpg is always in bluleths hands
     rpg.x = bluleth.x;
-    rpg.y = bluleth.y;
+    rpg.y = bluleth.y + 3000;
 
     //   makes bluleth not able to walk through walls
     game.physics.arcade.collide(blulethI, layer);
@@ -388,8 +387,8 @@ var level1State = {
     game.physics.arcade.overlap(blulethI, terminalB, this.terminalBActivate, null, this);
 
     //   makes sure you can't walk through walls when the terminals haven't been activated
-    game.physics.arcade.overlap(blulethI, wallA1, this.wallABlock, null, this);
-    game.physics.arcade.overlap(blulethI, wallA2, this.wallABlock, null, this);
+    game.physics.arcade.overlap(blulethI, Blue_Door, this.wallABlock, null, this);
+    game.physics.arcade.overlap(blulethI, Red_Door, this.wallABlock, null, this);
 
     game.physics.arcade.overlap(blulethI, wallB, this.wallBBlock, null, this);
 
@@ -448,13 +447,13 @@ var level1State = {
     }
 
     if (game.global.right_side == 1) {
-      rpg.x = blulethI.x + 40;
-      rpg.y = blulethI.y;
+      rpg.x = blulethI.x + 10;
+      rpg.y = blulethI.y + 10;
       bluleth.scale.x = 1;
       blulethI.scale.x = 1;
     } else {
-      rpg.x = blulethI.x - 40;
-      rpg.y = blulethI.y;
+      rpg.x = blulethI.x - 10;
+      rpg.y = blulethI.y + 10;
       bluleth.scale.x = -1;
       blulethI.scale.x = -1;
     }
@@ -475,10 +474,10 @@ var level1State = {
       game.global.alien3Moved = 1;
       game.global.alien4Moved = 1;
     }
-    //console.log(game.global.alien1Moved);
-    //console.log(game.global.alien2Moved);
+    console.log(game.global.alien1Moved);
+    console.log(game.global.alien2Moved);
     console.log(game.global.alien3Moved);
-    //console.log(game.global.alien4Moved);
+    console.log(game.global.alien4Moved);
 
 
     //console.log(Math.abs(Math.floor(alien3.x / 100) - Math.floor(blulethI.x / 100)) + Math.abs(Math.floor(alien3.y / 100) - Math.floor(blulethI.y / 100)));
@@ -694,7 +693,6 @@ var level1State = {
     }
 
     if (game.global.tutorialStep == 5) {
-      console.log("shoot em to end tutorial");
       if (game.global.alien1HP < 3) {
         tutorialFight.kill();
         game.global.tutorialStep = 6;
@@ -722,19 +720,16 @@ var level1State = {
     if (game.global.tutorialStep == 2) {
       tutorialMove.alpha = 1;
       game.global.tutorialStep = 3;
-      console.log("shows movement tutorial");
     }
 
     if (game.input.mousePointer.y > 650 && cameraSprite.y < 800) {
       tutorialScroll.kill();
       game.global.tutorialStep = 2;
-      console.log("kill scroll1");
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 650);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else if (game.input.mousePointer.y < 150 && cameraSprite.y > 400) {
       tutorialScroll.kill();
       game.global.tutorialStep = 2;
-      console.log("kill scroll2");
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 150);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else {
@@ -850,7 +845,7 @@ var level1State = {
 
   hitAlien1: function(rpgRocket, alien1Body) {
     //   This is what happens when the alien is hit with the rocket
-    game.global.alien1HP = game.global.alien1HP - 0.5;
+    game.global.alien1HP = game.global.alien1HP - 1;
     rpgRocket.alpha = 0;
     rpgRocket.x = -100;
     rpgRocket.y = -100;
@@ -866,7 +861,7 @@ var level1State = {
 
   hitAlien2: function(rpgRocket, alien2Body) {
     //   This is what happens when the alien is hit with the rocket
-    game.global.alien2HP = game.global.alien2HP - 0.5;
+    game.global.alien2HP = game.global.alien2HP - 1;
     rpgRocket.alpha = 0;
     rpgRocket.x = -100;
     rpgRocket.y = -100;
@@ -882,7 +877,7 @@ var level1State = {
 
   hitAlien3: function(rpgRocket, alien3Body) {
     //   This is what happens when the alien is hit with the rocket
-    game.global.alien3HP = game.global.alien3HP - 0.5;
+    game.global.alien3HP = game.global.alien3HP - 1;
     rpgRocket.alpha = 0;
     rpgRocket.x = -100;
     rpgRocket.y = -100;
@@ -898,7 +893,7 @@ var level1State = {
 
   hitAlien4: function(rpgRocket, alien4Body) {
     //   This is what happens when the alien is hit with the rocket
-    game.global.alien4HP = game.global.alien4HP - 0.5;
+    game.global.alien4HP = game.global.alien4HP - 1;
     rpgRocket.alpha = 0;
     rpgRocket.x = -100;
     rpgRocket.y = -100;
@@ -1104,7 +1099,7 @@ var level1State = {
   alien1HitPlayer: function() {
     blulethI.body.velocity.x = 0;
 
-    game.global.playerHP = game.global.playerHP - 1;
+    game.global.playerHP = game.global.playerHP - 0.5;
     console.log("Ouch, you've been hit!");
     console.log("PlayerHP = " + game.global.playerHP);
     game.global.ammo = game.global.ammo + 1;
@@ -1126,7 +1121,7 @@ var level1State = {
   alien2HitPlayer: function() {
     blulethI.body.velocity.x = 0;
 
-    game.global.playerHP = game.global.playerHP - 1;
+    game.global.playerHP = game.global.playerHP - 0.5;
     console.log("Ouch, you've been hit!");
     console.log("PlayerHP = " + game.global.playerHP);
     game.global.ammo = game.global.ammo + 1;
@@ -1146,6 +1141,9 @@ var level1State = {
   },
 
   alien3HitPlayer: function() {
+    alien3Body.x = Math.floor(alien3Body.x / 100) * 100 + 50;
+    alien3Body.y = Math.floor(alien3Body.y / 100) * 100 + 50;
+
     blulethI.body.velocity.x = 0;
 
     game.global.playerHP = game.global.playerHP - 0.5;
@@ -1162,9 +1160,6 @@ var level1State = {
     alien3Move2.x = -1000;
 
     game.global.alien3Moved = 0;
-
-    alien3Body.x = Math.floor(alien3Body.x / 100) * 100 + 50;
-    alien3Body.y = Math.floor(alien3Body.y / 100) * 100 + 50;
   },
 
   nextHeading: function() {
@@ -1180,7 +1175,7 @@ var level1State = {
   alien4HitPlayer: function() {
     blulethI.body.velocity.x = 0;
 
-    game.global.playerHP = game.global.playerHP - 1;
+    game.global.playerHP = game.global.playerHP - 0.5;
     console.log("Ouch, you've been hit!");
     console.log("PlayerHP = " + game.global.playerHP);
     game.global.ammo = game.global.ammo + 1;
@@ -1203,16 +1198,18 @@ var level1State = {
 
   terminalAActivate: function(blulethI, terminalA) {
     //   this changes a variable when Bluleth touches the terminals
+    Blue_Door.animations.play("openBlue")
     game.global.wallA = 1;
     console.log(game.global.wallA);
   },
 
   terminalBActivate: function(blulethI, terminalB) {
     game.global.wallB = 1;
+    Red_Door.animations.play("openRed")
     console.log(game.global.wallB);
   },
 
-  wallABlock: function(blulethI, wallA1) {
+  wallABlock: function(blulethI, Blue_Door) {
     //   This forces the closed doors to act as walls
     if (game.global.wallA == 0) {
       blulethI.body.velocity.x = 0;
@@ -1232,17 +1229,9 @@ var level1State = {
   },
 
 
-  WinIThink: function(blulethI, endTile) {
-    game.state.start("WinIThink");
+  WinFunction: function(blulethI, endTile) {
+    game.state.start("win");
   },
-
-  //WinFUll: function(blulethI, endTile) {
-  //  game.state.start("WinFull");
-  //},
-
-  //WinHalf: function(blulethI, endTile) {
-  //  game.state.start("WinHalf");
-  //},
 
 
   attackalien1: function() {
@@ -1348,7 +1337,7 @@ var level1State = {
     console.log(Math.floor(alien3.x / 100) - Math.floor(bluleth.x / 100));
     rpg.rotation = game.math.angleBetween(rpg.x, rpg.y, alien3.x, alien3.y);
     if (Math.abs(Math.floor(alien3.x / 100) - Math.floor(bluleth.x / 100)) + Math.abs(Math.floor(alien3.y / 100) - Math.floor(bluleth.y / 100)) < 4) {
-      console.log('Bluleth Is Attacking Alien 1');
+      console.log('Bluleth Is Attacking Alien 3');
       if (game.global.ammo == 1) {
         rpgRocket.x = rpg.x;
         rpgRocket.y = rpg.y;

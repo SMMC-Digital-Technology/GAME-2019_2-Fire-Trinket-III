@@ -6,13 +6,9 @@ game.state.add('menu', menuState);
 
 //   creates different states for all 6 different levels
 game.state.add('level1', level1State);
-game.state.add('level2', level2State);
-game.state.add('level3', level3State);
-game.state.add('level4', level4State);
-game.state.add('level5', level5State);
-game.state.add('level6', level6State);
 // remember to add in additional levels as they are made
 game.state.add('gameover', gameoverState);
+game.state.add('win', winState);
 
 game.global = {
   //   creates the different variables to tell diffrerent parts of the story, which turn it is, and for movving the different characters
