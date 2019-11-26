@@ -473,40 +473,48 @@ var level1State = {
       }
     }
 
-    if (game.global.tutorialStep = 5) {
-      if (game.global.ammo < 1) {
+    if (game.global.tutorialStep == 5) {
+      console.log("shoot em to end tutorial");
+      if (game.global.alien1HP < 3) {
         tutorialFight.kill();
+        game.global.tutorialStep = 6;
       }
     }
 
-    //if (game.global.tutorialStep == 4) {
-    //  tutorialFight.alpha = 1;
-    //  game.global.tutorialStep = 5;
-    //}
+    if (game.global.tutorialStep == 4) {
+      tutorialFight.alpha = 1;
+      game.global.tutorialStep = 5;
+    }
 
     if (game.global.tutorialStep == 3) {
-      if (blulethI.body.velocity.y != 0) {
+      if (blulethI.body.velocity.y !== 0) {
         tutorialMove.kill();
         game.global.tutorialStep = 4;
-      } else if (blulethI.body.velocity.x != 0) {
+      } else if (blulethI.body.velocity.x !== 0) {
         tutorialMove.kill();
         game.global.tutorialStep = 4;
-      } 
+      } else {
+
+      }
     }
+
 
     if (game.global.tutorialStep == 2) {
       tutorialMove.alpha = 1;
       game.global.tutorialStep = 3;
+      console.log("shows movement tutorial");
     }
 
     if (game.input.mousePointer.y > 650 && cameraSprite.y < 800) {
       tutorialScroll.kill();
       game.global.tutorialStep = 2;
+      console.log("kill scroll1");
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 650);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else if (game.input.mousePointer.y < 150 && cameraSprite.y > 400) {
-      game.global.tutorialStep = 2;
       tutorialScroll.kill();
+      game.global.tutorialStep = 2;
+      console.log("kill scroll2");
       cameraSprite.body.velocity.y = (this.input.mousePointer.y - 150);
       game.global.charY += cameraSprite.body.velocity.y / 60;
     } else {
@@ -747,8 +755,9 @@ var level1State = {
     }
   },
 
+
   finishLevel: function(blulethI, endTile) {
-    game.state.start("level2")
+    game.state.start("gameover");
   },
 
 
