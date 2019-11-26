@@ -32,10 +32,13 @@ var loadState = {
     game.load.spritesheet("Alien", 'assets/alien.png', 100, 100);
     //player sprites
     game.load.spritesheet("Bluleth", 'assets/bluleth.png', 100, 100);
-    game.load.image('Joe', 'assets/Joe.png');
-    game.load.image('Abel', 'assets/Able.png');
+    game.load.spritesheet('Joe', 'assets/Joe.png', 100, 100);
+    game.load.spritesheet('Abel', 'assets/Able.png', 100, 100);
     //players HP
     game.load.spritesheet("playerHPSprite", "assets/PlayerHP.png", 96, 32);
+
+    game.load.spritesheet("lose", "assets/lose.png", 100, 100);
+    game.load.spritesheet("win", "assets/win.png", 100, 100);
 
     //game.load.bitmapFont('carrier_command', 'assets/carrier_command.png', 'assets/carrier_command.xml');
     //   preloads everything into the game
