@@ -7,7 +7,7 @@ var gameoverState = {
       gameOver = game.add.text(250, 300, "GAME OVER", {fill :  'white'});
       gameOver.scale.x = 3;
       gameOver.scale.y = 3;
-      gameOverFail = game.add.text(250, 350, "you have failed! useless, sack of garbage, waste of bones!", {fill :  'white'});
+      gameOverFail = game.add.text(200, 450, "you have failed! useless, sack of garbage, waste of bones!", {fill :  'white'});
    }
 
    //use the following to go back to the menu
