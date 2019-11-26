@@ -20,8 +20,10 @@ var loadState = {
     game.load.image('planet4', 'assets/Planet_4.png');
     game.load.image('planet5', 'assets/Planet_5.png');
     game.load.image('GalaxyMap', 'assets/Galaxy_Map.png');
-    //level spritesheet
+    //level spritesheet and doors
     game.load.image('level1BG', 'assets/BG_1.png');
+    game.load.spritesheet('BlueDoor', 'assets/Blue_Door');
+    game.load.spritesheet('RedDoor', 'assets/Red_Door');
     //WIP potions
     game.load.image('wrathE', 'assets/ElixirOfWrath.png');
     game.load.image('realmWarpE', 'assets/RealmWarpPotion.png');
@@ -39,6 +41,8 @@ var loadState = {
 
     game.load.spritesheet("lose", "assets/lose.png", 100, 100);
     game.load.spritesheet("win", "assets/win.png", 100, 100);
+
+    game.load.image("Text_Box", "assets/textBox.png");
 
     //game.load.bitmapFont('carrier_command', 'assets/carrier_command.png', 'assets/carrier_command.xml');
     //   preloads everything into the game

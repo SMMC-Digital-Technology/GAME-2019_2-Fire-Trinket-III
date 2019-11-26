@@ -29,16 +29,17 @@ var level1State = {
 
 
     //   creates the first set of doors (blue) and it's terminal
-    wallA1 = game.add.sprite(198, 0, 'wall');
-    wallA2 = game.add.sprite(598, 100, 'wall');
+    Blue_Door = game.add.sprite(198, 0, 'wall');
+    Red_Door = game.add.sprite(598, 100, 'wall');
     terminalA = game.add.sprite(0, 300, 'wall');
 
-    //   creates the physics for the doors and for the terminal and stops them from moving
-    game.physics.arcade.enable(wallA1);
-    wallA1.body.immovable = true;
-    game.physics.arcade.enable(wallA2);
-    wallA2.body.immovable = true;
 
+    //   creates the physics for the doors and for the terminal and stops them from moving
+    game.physics.arcade.enable(Blue_Door);
+    Blue_Door.body.immovable = true;
+    game.physics.arcade.enable(Red_Door);
+    Red_Door.body.immovable = true;
+    Blue_Door.animations.add("openBlue", [0, 1, 2, 3], 10, true);
     game.physics.arcade.enable(terminalA);
     terminalA.body.immovable = true;
 
@@ -48,7 +49,7 @@ var level1State = {
 
     game.physics.arcade.enable(wallB);
     wallB.body.immovable = true;
-
+    Red_Door.animations.add("openRed", [0, 1, 2, 3], 10, true);
     game.physics.arcade.enable(terminalB);
     terminalB.body.immovable = true;
 
@@ -144,8 +145,8 @@ var level1State = {
     game.physics.arcade.enable(alien2Move2);
 
     alien3 = game.add.button(250, 450, "Alien");
-    //alien3.scale.x = 2;
-    //alien3.scale.y = 2;
+    alien3.scale.x = 1;
+    alien3.scale.y = 1;
     alien3.anchor.setTo(0.5, 0.5);
     alien3.smoothed = false;
     game.physics.arcade.enable(alien3);
@@ -236,7 +237,34 @@ var level1State = {
       fill: 'white'
     });
     tutorialFight.alpha = 0;
+
+//dialog
+
+    textBodyStart = game.add.text(510, 610, game.global.bodyTextStart, {
+      fill: 'white'
+    });
+    textBodyStart.scale.x = 0.8;
+    textBodyStart.scale.y = 0.8;
+
+    textHeading1 = game.add.text(510, 560, game.global.headingText1, {
+      fill: 'white'
+    });
+
+
+    textBox = game.add.sprite(500, 550, "Text_Box");
+    textBox.scale.x = 2.5;
+    textBox.scale.y = 2.5;
+    textBox.alpha = 0;
+
+
+    textBodyTerminal = game.add.text(510, 610, game.global.bodyTextTerminal, {
+      fill: 'white'
+    });
+    textBodyTerminal.scale.x = 0.8;
+    textBodyTerminal.scale.y = 0.8;
+    textBodyTerminal.alpha = 0;
   },
+
 
   update: function() {
 
@@ -346,8 +374,8 @@ var level1State = {
     game.physics.arcade.overlap(blulethI, terminalB, this.terminalBActivate, null, this);
 
     //   makes sure you can't walk through walls when the terminals haven't been activated
-    game.physics.arcade.overlap(blulethI, wallA1, this.wallABlock, null, this);
-    game.physics.arcade.overlap(blulethI, wallA2, this.wallABlock, null, this);
+    game.physics.arcade.overlap(blulethI, Blue_Door, this.wallABlock, null, this);
+    game.physics.arcade.overlap(blulethI, Red_Door, this.wallABlock, null, this);
 
     game.physics.arcade.overlap(blulethI, wallB, this.wallBBlock, null, this);
 
@@ -1147,16 +1175,18 @@ var level1State = {
 
   terminalAActivate: function(blulethI, terminalA) {
     //   this changes a variable when Bluleth touches the terminals
+    Blue_Door.animations.play("openBlue")
     game.global.wallA = 1;
     console.log(game.global.wallA);
   },
 
   terminalBActivate: function(blulethI, terminalB) {
     game.global.wallB = 1;
+    Red_Door.animations.play("openRed")
     console.log(game.global.wallB);
   },
 
-  wallABlock: function(blulethI, wallA1) {
+  wallABlock: function(blulethI, Blue_Door) {
     //   This forces the closed doors to act as walls
     if (game.global.wallA == 0) {
       blulethI.body.velocity.x = 0;
