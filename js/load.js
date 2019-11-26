@@ -37,6 +37,8 @@ var loadState = {
     //players HP
     game.load.spritesheet("playerHPSprite", "assets/PlayerHP.png", 96, 32);
 
+    game.load.image("Text_Box", "assets/textBox.png");
+
     //game.load.bitmapFont('carrier_command', 'assets/carrier_command.png', 'assets/carrier_command.xml');
     //   preloads everything into the game
   },
