@@ -253,7 +253,7 @@ var level1State = {
     tutorialScroll = game.add.text(150, 700, "Move Cursor up or down to scroll", {fill :  'white'});
     tutorialMove = game.add.text(0, 700, "Click on your charactor and then a tile to move there.\nit must be within 3 tiles of your origin, including walking distance around cornors.", {fill :  'white'});
     tutorialMove.alpha = 0;
-    tutorialFight = game.add.text(0, 700, "when walking into a radius of ememies they will attack you,\ncan can then attack them by clicking on your charctor and then the enemie.", {fill :  'white'});
+    tutorialFight = game.add.text(0, 700, "when walking into a radius of ememies they will attack you,\ncan can then attack them by clicking on your character and then the enemie.", {fill :  'white'});
     tutorialFight.alpha = 0;
   },
 
@@ -719,7 +719,6 @@ var level1State = {
 
   alien1HitPlayer: function() {
     blulethI.body.velocity.x = 0;
-
 
     game.global.playerHP = game.global.playerHP - 1;
     console.log("Ouch, you've been hit!");
