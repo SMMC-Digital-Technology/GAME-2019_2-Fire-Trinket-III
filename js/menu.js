@@ -28,6 +28,10 @@ var menuState = {
       fill: 'white'
     });
 
+    urk = game.add.text(button1.x + 100, button1.y - 20, "Urk", {
+      fill: 'white'
+    });
+
 
     textBox = game.add.sprite(500, 550, "Text_Box");
     textBox.scale.x = 2.5;

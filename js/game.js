@@ -16,14 +16,14 @@ game.global = {
   alien1X: 0,
   alien1Y: 0,
 
-headingText1: "a",
-headingText2: "b",
-bodyText1: "1",
-bodyText2: "2",
-bodyText3: "3",
-bodyText4: "4",
-bodyTextStart: "5",
-bodyTextTerminal: "6",
+headingText1: "Jeo",
+headingText2: "Bluleth",
+bodyText1: "H-h-h hello? Is there anyone out there, please\nwe need help.",
+bodyText2: "Hello, who is this? This radio signal is private,\nhow did you get in?",
+bodyText3: "P-p-please send help, I'm currently on Urk the \ndying planet, aliens have taken over and are \nplanning on using the fire trinket to blow up \nthe solar system, please send help!!!",
+bodyText4: "Alright, I'm heading your way! Stay tight!",
+bodyTextStart: "T-t-there they are the aliens please help us",
+bodyTextTerminal: "Yes!!!, now get me out of this dreadful place!. Thank you so much!",
 
 
   alien1Moved: 1,
