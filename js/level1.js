@@ -290,7 +290,9 @@ var level1State = {
     game.physics.arcade.collide(blulethI, layer);
     game.physics.arcade.collide(rpgRocket, alien1Body, this.hitAlien1, null, this);
     game.physics.arcade.collide(blulethI, alien1Body, this.alien1HitPlayer, null, this);
-    game.physics.arcade.collide(blulethI, endTile, this.finishLevel, null, this);
+    game.physics.arcade.collide(blulethI, endTile, this.WinIThink, null, this);
+    //game.physics.arcade.collide(blulethI, endTile, this.WinHalf, null, this);
+    //game.physics.arcade.collide(blulethI, endTile, this.WinFull, null, this);
 
     game.physics.arcade.collide(blulethMove1, layer);
     game.physics.arcade.collide(blulethMove2, layer);
@@ -719,7 +721,7 @@ var level1State = {
 
   alien1HitPlayer: function() {
     blulethI.body.velocity.x = 0;
-    
+
 
     game.global.playerHP = game.global.playerHP - 1;
     console.log("Ouch, you've been hit!");
@@ -774,9 +776,17 @@ var level1State = {
   },
 
 
-  finishLevel: function(blulethI, endTile) {
-    game.state.start("gameover");
+  WinIThink: function(blulethI, endTile) {
+    game.state.start("WinIThink");
   },
+
+  //WinFUll: function(blulethI, endTile) {
+  //  game.state.start("WinFull");
+  //},
+
+  //WinHalf: function(blulethI, endTile) {
+  //  game.state.start("WinHalf");
+  //},
 
 
   attackalien1: function() {
