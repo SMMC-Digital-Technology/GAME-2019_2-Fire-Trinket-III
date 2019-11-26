@@ -146,8 +146,8 @@ var level1State = {
     game.physics.arcade.enable(alien2Move2);
 
     alien3 = game.add.button(250, 450, "Alien");
-    //alien3.scale.x = 2;
-    //alien3.scale.y = 2;
+    alien3.scale.x = 1;
+    alien3.scale.y = 1;
     alien3.anchor.setTo(0.5, 0.5);
     alien3.smoothed = false;
     game.physics.arcade.enable(alien3);
@@ -168,8 +168,8 @@ var level1State = {
     game.physics.arcade.enable(alien3Move2);
 
     alien4 = game.add.button(750, 350, "Alien");
-    alien4.scale.x = 2;
-    alien4.scale.y = 2;
+    alien4.scale.x = 1;
+    alien4.scale.y = 1;
     alien4.anchor.setTo(0.5, 0.5);
     alien4.smoothed = false;
     game.physics.arcade.enable(alien4);
@@ -238,7 +238,34 @@ var level1State = {
       fill: 'white'
     });
     tutorialFight.alpha = 0;
+
+//dialog
+
+    textBodyStart = game.add.text(510, 610, game.global.bodyTextStart, {
+      fill: 'white'
+    });
+    textBodyStart.scale.x = 0.8;
+    textBodyStart.scale.y = 0.8;
+
+    textHeading1 = game.add.text(510, 560, game.global.headingText1, {
+      fill: 'white'
+    });
+
+
+    textBox = game.add.sprite(500, 550, "Text_Box");
+    textBox.scale.x = 2.5;
+    textBox.scale.y = 2.5;
+    textBox.alpha = 0;
+
+
+    textBodyTerminal = game.add.text(510, 610, game.global.bodyTextTerminal, {
+      fill: 'white'
+    });
+    textBodyTerminal.scale.x = 0.8;
+    textBodyTerminal.scale.y = 0.8;
+    textBodyTerminal.alpha = 0;
   },
+
 
   update: function() {
 
