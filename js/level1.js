@@ -711,6 +711,7 @@ var level1State = {
 
   alien1HitPlayer: function() {
     blulethI.body.velocity.x = 0;
+    
 
     game.global.playerHP = game.global.playerHP - 1;
     console.log("Ouch, you've been hit!");
